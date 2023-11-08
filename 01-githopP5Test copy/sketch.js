@@ -1,23 +1,25 @@
-let pageHeader
-let showRedCircle = true
+let currentPage = '#page1'
 
-function windowresized(){
-  resizeCanvas(windowWidth, windowHeight);
-}
-function setup() {
-  createCanvas(windowWidth, windowHeight);
-  pageHeader = createElement('h1','overskrift med creat element')
-  pageHeader = select('#htmlPageHedder')
-    .html('Nu har p5 overtaget overskriften')
-    .position(100,100)
-    .mouseClicked(() => showRedCircle =  !showRedCircle)
+
+function setup(){
+    select ('#item1').mouseClicked( () => switchPage('#page1'))
+    select ('#item2').mouseClicked( () => switchPage('#page2'))
+    select ('#item3').mouseClicked( () => switchPage('#page3'))
+    select ('#item4').mouseClicked( () => switchPage('#page4'))
 }
 
-function draw() {
-  background(220);
-
-  if(showRedCircle == true){
-    fill(255,0,0)
-    ellipse(300,300,200)
+function switchPage( whichPage ){
+    
+    select(currentPage).removeClass('show')
+    select(whichPage).addClass('show')
+    currentPage = whichPage
+    
 }
+
+function draw(){
+
+}
+
+function windowResized(){
+    resizeCanvas(windowWidth,windowHeight);
 }
