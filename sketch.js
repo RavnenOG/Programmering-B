@@ -10,7 +10,7 @@ function setup() {
   pageHeader = select('#htmlPageHedder')
     .html('Nu har p5 overtaget overskriften')
     .position(100,100)
-    .mouseClicked(() => showRedCircle = !showRedCircle)
+    .mouseClicked(() => showRedCircle =  !showRedCircle)
 }
 
 function draw() {
