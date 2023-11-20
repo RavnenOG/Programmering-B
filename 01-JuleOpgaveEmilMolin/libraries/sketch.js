@@ -19,10 +19,10 @@ function draw() {
   rect(-width/2+20,-height/2+20,width-40,height-40)
   
   fill(0)
-  textSize(18)
+  textSize(20)
   textAlign(CENTER)
   textFont(Font1)
-  text("Christmas Calendar",windowWidth/2,windowHeight/2)
+  text("Christmas Calendar",windowWidth/2-windowWidth/2,-windowHeight/2+60)
   
 
   // -
