@@ -39,7 +39,7 @@ function draw() {
     let idk = 1
 
     
-  for(y=-windowHeight/2+100,idk=1;y<=windowHeight/2-75;y+=size+sBetweenY){
+  for(y=-windowHeight/2+size+50,idk=1;y<=windowHeight/2-75;y+=size+sBetweenY){
 for(x = -windowWidth/2+75;x<=windowWidth/2-75;x+=size+sBetweenX, nums+=1){
   doorNumbers = nums
 makeDoors(x,y,doorNumbers,size)

@@ -1,83 +1,70 @@
-let doorStopAngle = 130
-let doorOpening1 = 0
-
-let buttonOpener1
-let openDoor1 = false
 
 function preload(){
-  Font1 = loadFont('Fonts/Present.ttf')
+  Font1 = loadFont('Present.ttf')
 }
 
 function setup() {
-  createCanvas(500,500,WEBGL);//Creates a canvas, with WEBGL so it can do 3D things
+  createCanvas(windowWidth,windowHeight,WEBGL);//Creates a canvas, with WEBGL so it can do 3D things
   background(200) //Canvas background
   angleMode(DEGREES)  //makes angels in Degrees
-  
-
-  buttonOpener1 = createButton("")
-  buttonOpener1.size(120,120)
-  buttonOpener1.position(250,250)
-  buttonOpener1.mousePressed(door1)
-    let col = color(0,0,0,0)
-  buttonOpener1.style('background-color', col)
-  
+  rectMode(CORNER)
 }
 
 function draw() {
+  
+
   //making of the appearance of the Christmas Calendar -
   
-  //making the background for the Julekalender
+  //Red Julekalender background
   fill(200,0,0)
-
-  rect(-width/2+20,-height/2+20,width-40,height-40)
+  rect(-windowWidth/2+20,-windowHeight/2+20,windowWidth-40,windowHeight-40)
   
+  //title
   fill(0)
-  textSize(18)
+  textSize(20)
   textAlign(CENTER)
   textFont(Font1)
-  text("Christmas Calendar",0,-height/2+75)
-  
+  text("Christmas Calendar "+windowWidth+"<- width and height -> "+windowHeight,windowWidth/2-windowWidth/2,-windowHeight/2+60)
+ 
+    //-
 
-  // -
-  
-  //gates
-   fill(0,200,20)
-  rect(0,0,120,120)
-  //DoorAnimation //put in function all under
-   if(doorOpening1<=doorStopAngle&&openDoor1==true){
-   
-     
-    fill(200,100,0)
-  rotateY(-doorOpening1)
-  rect(0, 0, 120, 120);
-    fill(0)
-    translate(0,0,1)
-  text("1",50,80)
-    translate(0,0,-1)
-  
-  doorOpening1 += 1
-  console.log(millis()/20)
-  console.log("Door Angle: "+doorOpening1)
+    
+    let size1 = -120
+    push()
+  ellipse(0,0,40)
+  fill(0,0,255)
+  translate(-900,-windowHeight/2.68,0)
+
+  ellipse(0,0,20)
+  rect(0,0,-size1)
+
+  pop()
+  fill(0,255,0)
+  rect(0,0,-size1)
+
+  //
+  let nums = 1
+  let sizeX = windowWidth/20
+  let sizeY = windowHeight/11
+  for(posY=-windowHeight/4-100;posY<=windowHeight/4*4;posY+=windowHeight/4){
+    for(posX = -windowWidth/6-450;posX<=windowWidth/6*6;posX+=windowWidth/6, nums+=1){
+      doorNumbers = nums
+      translate(posX-windowWidth/6,0,0)
+      translate(posX,0,0)
+    makeDoors(posX,posY,doorNumbers,sizeX,sizeY)
+    }
   }
-  
-   //After door animation, keeping door opened
-  if(doorOpening1 > 130){
-    fill(200,100,0)
-    rotateY(-130)
-     rect(0, 0, 120, 120);
-     }
-  
-  fill(200,100,0)
-  rect(0,0,120)
-  fill(0)
-    translate(0,0,1)
-  text("1",50,80)
-    translate(0,0,-1)
-
+  text(posX+"   "+posY,windowWidth/2-windowWidth/2,-windowHeight/2+100)
 }
 
+function makeDoors(posX,posY,doorNumbers,sizeX,sizeY){
+  fill(100,100,0)
+  rect(0,0, sizeX,sizeY);
+  ellipse(0,0,20)//test
+  fill(0)
+  text(doorNumbers,posX,posY,sizeX,sizeY)
+}
 
-function door1(){
-  openDoor1 = true
-  buttonOpener1.hide()
+function windowResized(){
+  resizeCanvas(windowWidth,windowHeight);
 }
