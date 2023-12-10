@@ -106,21 +106,7 @@ function setup(){
 
   }
 
-}
-
-function draw(){
-  if(calendarOpen == true){
-    background(180);
-
-    //Laver lågerne
-    gateMaker(gateXArray[0],gateYArray[0],image1,25);
-  }
-
-  while(gateSpawnAmount<=24){
-
-  }
-
-  while(laageSpawnCount<25&&safetyCount<10000){
+  while(gateSpawnAmount<25&&safetyCount<10000){
     let xRandom = Math.floor(random(size-windowWidth/2,windowWidth/2-size))
     let yRandom = Math.floor(random(size-windowHeight/2,windowHeight/2-size))
     let placeableXArr = new Array();
@@ -157,6 +143,19 @@ function draw(){
     
     
   }
+
+}
+
+function draw(){
+  if(calendarOpen == true){
+    background(180);
+
+    //Laver lågerne
+    gateMaker(gateXArray[0],gateYArray[0],image1,25);
+  }
+
+  
+  
 
 }
 
