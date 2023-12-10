@@ -56,7 +56,7 @@ function makeDoors(posX,posY,doorNumbers,sizeX,sizeY){
   fill(100,100,0)
   rect(0,0, sizeX,sizeY);
   ellipse(0,0,20)//test
-
+/*
 if(key=="o"){
   for(doorOpening=0;doorOpening<=130;doorOpening+=1){
   rotateY(-doorOpening)
@@ -71,6 +71,7 @@ if(key=="o"){
 }
 
   rotateY(130)
+  */
 }
 
 function windowResized(){

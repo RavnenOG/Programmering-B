@@ -8,12 +8,13 @@ let rotationBegunArray = new Array();
 let gateXArray = new Array();
 let gateYArray = new Array();
 let gateSpawnAmount = 1;
+let safetyCount = 0;
 
 let calendarOpen = Open;
 
 function preload(){
   font1 = loadFont('Present.ttf');
-  image1 = loadImage("images/JuleBilled1");
+  image1 = loadImage("images/JuleBilled1png.png");
 
 }
 
@@ -112,13 +113,50 @@ function draw(){
     background(180);
 
     //Laver lågerne
-    gateMaker(gateXArray[0],gateYArray[0],image1);
+    gateMaker(gateXArray[0],gateYArray[0],image1,25);
   }
 
   while(gateSpawnAmount<=24){
 
   }
 
+  while(laageSpawnCount<25&&safetyCount<10000){
+    let xRandom = Math.floor(random(size-windowWidth/2,windowWidth/2-size))
+    let yRandom = Math.floor(random(size-windowHeight/2,windowHeight/2-size))
+    let placeableXArr = new Array();
+    let placeableYArr = new Array();
+    let count = 0;
+    let spawnable = true;
+    while(count<=gateXArray.length&&gateXArray.length>0){
+        if(gateXArray[count]-xRandom < size+10 && gateXArray[count]-xRandom > -size-10){
+          placeableXArr.push(false)
+        }
+        else{
+          placeableXArr.push(true)
+        }
+        if(gateXArray[count]-yRandom < size+10 && gateXArray[count]-yRandom > -size-10){
+          placeableYArr.push(false)
+        }
+        else{
+          placeableYArr.push(true)
+        }
+        if(placeableXArr[count] == false && placeableYArr[count] == false){
+          spawnable = false;
+          safetyCount++;
+        }
+
+        count++
+    }
+
+    if(spawnable == true){
+      gateXArray.push(xRandom)
+      gateXArray.push(yRandom)
+      gateSpawnAmount++;
+    }
+
+    
+    
+  }
 
 }
 
