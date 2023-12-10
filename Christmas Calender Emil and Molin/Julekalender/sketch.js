@@ -81,6 +81,7 @@ function gateOpenChecker(gateNumber){
 
   if(gateOpenArray[gateNumber-1] == true){
 
+    //inset what to open here
 
     calendarOpen = false;
   }
@@ -154,9 +155,7 @@ function draw(){
     gateMaker(gateXArray[0],gateYArray[0],image1,25);
   }
 
-  
-  
-
+  gateOpenChecker(1)
 }
 
 
