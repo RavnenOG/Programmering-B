@@ -102,7 +102,7 @@ function setup(){
   }
 
   while(gateSpawnAmount<=24){
-    
+
   }
 
 }
@@ -115,7 +115,9 @@ function draw(){
     gateMaker(gateXArray[0],gateYArray[0],image1);
   }
 
-  while(gate)
+  while(gateSpawnAmount>=24){
+
+  }
 
 
 }
