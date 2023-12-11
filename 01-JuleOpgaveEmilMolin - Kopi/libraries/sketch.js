@@ -1,5 +1,10 @@
+let brikX=[]
+let brikY=[]
+
+
 function preload(){
   Font1 = loadFont('Present.ttf')
+  img1 = loadImage('JulHehe.JPG')
 }
 
 function setup() {
@@ -7,6 +12,9 @@ function setup() {
   background(200) //Canvas background
   angleMode(DEGREES)  //makes angels in Degrees
   rectMode(CORNER)
+ 
+
+
 }
 
 function draw() {
@@ -48,17 +56,18 @@ function draw() {
     }
   }
 }
-
+let doorOpening = 0
+let doorStopAngle = 130
 function makeDoors(posX,posY,doorNumbers,sizeX,sizeY){
-  let doorOpening = 0
-  let doorStopAngle = 130
+  
  
   fill(100,100,0)
   rect(0,0, sizeX,sizeY);
   ellipse(0,0,20)//test
+  
 
-if(key=="o"){
-  for(doorOpening=0;doorOpening<=130;doorOpening+=1){
+if(doorOpening<=doorStopAngle){
+  
   rotateY(-doorOpening)
   fill(100,200,0)
   rect(0,0, sizeX,sizeY);
@@ -67,10 +76,12 @@ if(key=="o"){
   fill(0)
   text(doorNumbers,0,0,sizeX,sizeY)
   translate(0,0,-1)
-  }
+  
+ 
 }
 
-  rotateY(130)
+function mousePressed(){}
+
 }
 
 function windowResized(){
