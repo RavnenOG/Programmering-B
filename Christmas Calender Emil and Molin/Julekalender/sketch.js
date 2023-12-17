@@ -15,7 +15,8 @@ let calendarOpen = Open;
 function preload(){
   font1 = loadFont('Present.ttf');
   image1 = loadImage("images/JuleBilled1png.png");
-
+  
+  
 }
 
 //gateMaker laver alle lågerne
@@ -34,7 +35,7 @@ function gateMaker(x,y,gateImage,gateNumber,textLocation){
    
 
   //Laver noget bag lågen
-  fill(0)
+  fill(1)
   rect(x-size/2,y-size/2,size)
 
   //Translater for at rykke billedet så det passer
