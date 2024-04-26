@@ -49,8 +49,8 @@ function preload(){
   mothershipSkin = loadImage('Pictures/MotherShip.png')
   bulletSkin = loadImage('Pictures/playerBullet.png')
   enemyBulletSkin = loadImage('Pictures/EnemyBullet.png')
-  enemySkin1 = loadImage('EnemySkin1Red.png')
-  enemySkin2 = loadImage('Pictures/RocketEnemySpaceShip_-_Transparent2.png')
+  enemySkin1 = loadImage('Pictures/EnemySkin1Red.png')
+  enemySkin2 = loadImage('Pictures/RocketEnemySpaceShipTransparent.png')
   enemySkin3 = loadImage('Pictures/EnemySpaceShip3.png')
   explosion = loadImage('Pictures/explosion1.gif') 
 }
