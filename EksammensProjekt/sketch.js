@@ -20,6 +20,7 @@ let backgroundMusic1
 
 let menuSizeW = 80
 
+let musicPlaying
 
 // bullets er et tomt array til skud 
 let bullets = []
@@ -39,7 +40,7 @@ let abilities = []
 function preload(){
   //Sounds and music
   soundFormats('mp3', 'ogg');
-  //backgroundMusic1 = loadSound('VIDEOCLUB - ROI INSTRUMENTAL FULL Compressed.mp3')
+  backgroundMusic1 = loadSound('SoundsMusic/Videoclub Roi Intrumental FULL compressed.mp3')
   
 
   //Pictures and gifs
@@ -55,7 +56,6 @@ function preload(){
   explosion = loadImage('Pictures/explosion1.gif') 
 }
 function setup() {
- //backgroundMusic1.play();
   
   motherShipPos = windowHeight-80
   frameRate(500)
@@ -74,7 +74,7 @@ function setup() {
     y:height -80,
     w:100,
     h:100,
-    s:2,
+    s:3,
     show: function (){
       //This draws the space ship
       imageMode(CENTER)
@@ -101,6 +101,11 @@ function setup() {
 /////////////////////////////////////////////////////////////////////
 
 function draw() {
+  
+  if(mouseIsPressed && !musicPlaying){
+    musicPlaying = true
+ backgroundMusic1.play()}
+
   imageMode(CORNER)
   image(playingBackground,0,0,width-menuSizeW,height)
   image(playingMenu,width-menuSizeW,0,menuSizeW,height)
