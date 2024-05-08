@@ -18,11 +18,18 @@ let motherShipPos
 
 let backgroundMusic1
 
-let menuSizeW = 80
+let menuSizeW = 120
 
 let musicPlaying
 
 let starbornFont
+
+
+//Damage variables
+let enemyBulletDMG = 1
+let enemyShip1DMG = 5
+let enemyShip2DMG = 3
+let enemyShip3DMG = 10
 
 // bullets er et tomt array til skud 
 let bullets = []
@@ -175,6 +182,7 @@ so this makes the player click to start it, and it start he the player does and 
     
     if(currentEnemyBullet.y >= motherShipPos){
       createExplosion(currentEnemyBullet.x, currentEnemyBullet.y)
+      motherShipLife-=enemyBulletDMG
       enemyBullets.splice(i,1)
     }
   }
@@ -199,13 +207,16 @@ so this makes the player click to start it, and it start he the player does and 
     if(enemies[i].a == true){
     enemies[i].shoot()
     }
-    //This 
+    //This explode the enemy ship if it hits the motherShip and damages the mothership's life
     if(enemies[i].y > motherShipPos){
       createExplosion(enemies[i].x, enemies[i].y)
+      //TAKES LIFE FROM MOTHERSHIP
+      motherShipLife -= enemies[i].DMG
+
+      //removes the enemy ship
       enemies.splice(i,1)
       
-       //TAKE LIFE FROM MOTHERSHIP HERE
-      
+       
     }
   }
   
@@ -323,6 +334,7 @@ function createEnemy(type){
     s: 1,
     t: type,
     a: false,
+    DMG: 0,
     p: 0,
     show: function(){
    imageMode(CENTER)
@@ -332,6 +344,7 @@ function createEnemy(type){
         
         //points worth
         this.p = 2
+        this.DMG = enemyShip1DMG
       }
       else if(this.t == 2){
         //Enemy type 2. Small and fast
@@ -339,6 +352,7 @@ function createEnemy(type){
         this.w = 35
         this.h = 50
         this.s = 2
+        this.DMG = enemyShip2DMG
         
         //points worth
         this.p = 1
@@ -350,6 +364,7 @@ function createEnemy(type){
         this.a = true
         this.w = 80
         this.h = 80
+        this.DMG = enemyShip3DMG
         
         //points worth
         this.p = 3
