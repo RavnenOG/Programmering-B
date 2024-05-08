@@ -22,6 +22,8 @@ let menuSizeW = 80
 
 let musicPlaying
 
+let starbornFont
+
 // bullets er et tomt array til skud 
 let bullets = []
 //enemies er et tomt array til fjender
@@ -54,6 +56,9 @@ function preload(){
   enemySkin2 = loadImage('Pictures/RocketEnemySpaceShipTransparent.png')
   enemySkin3 = loadImage('Pictures/EnemySpaceShip3.png')
   explosion = loadImage('Pictures/explosion1.gif') 
+
+  //Fonts
+  starbornFont = loadFont('Fonts/Starborn.ttf')
 }
 function setup() {
   
@@ -124,11 +129,14 @@ so this makes the player click to start it, and it start he the player does and 
   image(playingMenu,width-menuSizeW,0,menuSizeW,height)
   image(mothershipSkin,0,height-120,width-menuSizeW,175)
 
-  textFont('Starborn.ttf')
-  textSize(20)
+  textFont(starbornFont)
+  textSize(12)
   fill(255)
   text("Points: "+points,width-menuSizeW,70,menuSizeW,100)
+
   text("Space Defender",width-menuSizeW,20,menuSizeW,100)
+
+  text("Mothership life: "+motherShipLife,width-menuSizeW,120,menuSizeW,100)
 /////////////////////
 
 
