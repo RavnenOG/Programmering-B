@@ -102,15 +102,29 @@ function setup() {
 
 function draw() {
   
+
+/////////////////////////////////
+//Music
+
   if(mouseIsPressed && !musicPlaying){
     musicPlaying = true
  backgroundMusic1.play()}
+ if(!backgroundMusic1.isPlaying()){
+  musicPlaying = false
+ }
 
+///////////////////////////////
+
+/////////////////
+//Background visuels
   imageMode(CORNER)
   image(playingBackground,0,0,width-menuSizeW,height)
   image(playingMenu,width-menuSizeW,0,menuSizeW,height)
   image(mothershipSkin,0,height-120,width-menuSizeW,175)
-  
+
+/////////////////////
+
+
   ///////////////////////
   //Player functions
   if(keyIsDown(LEFT_ARROW)){
