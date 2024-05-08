@@ -124,6 +124,11 @@ so this makes the player click to start it, and it start he the player does and 
   image(playingMenu,width-menuSizeW,0,menuSizeW,height)
   image(mothershipSkin,0,height-120,width-menuSizeW,175)
 
+  textFont('Starborn.ttf')
+  textSize(20)
+  fill(255)
+  text("Points: "+points,width-menuSizeW,70,menuSizeW,100)
+  text("Space Defender",width-menuSizeW,20,menuSizeW,100)
 /////////////////////
 
 
@@ -211,7 +216,9 @@ for(let i = 0; i < bullets.length; i++){
   //Then we check if they are hitting and if they are, then the if statement removes both the bullet and the enemy, and then adds an explosion
     if(bulletHitEnemy(currentBullet, currentEnemy)){
       
+      //this gives the player the amount of points that the enemy is worth
       points += currentEnemy.p
+
       bullets.splice(i,1)
       enemies.splice(n,1)
       imageMode(CENTER)
@@ -236,9 +243,6 @@ for(let i = 0; i < bullets.length; i++){
     }
   }
   
-  textSize(20)
-  fill(255)
-  text("Points: "+points,width-menuSizeW,50,menuSizeW,100)
 }
 
 
