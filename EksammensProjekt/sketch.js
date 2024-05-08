@@ -105,14 +105,16 @@ function draw() {
 
 /////////////////////////////////
 //Music
-
+/*When you open the sketch online, you can't play music instantly 
+so this makes the player click to start it, and it start he the player does and if the music isn't playing*/
   if(mouseIsPressed && !musicPlaying){
     musicPlaying = true
  backgroundMusic1.play()}
+
+ //If the music is finished playing, it starts over 
  if(!backgroundMusic1.isPlaying()){
   musicPlaying = false
  }
-
 ///////////////////////////////
 
 /////////////////
