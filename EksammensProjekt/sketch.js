@@ -19,6 +19,7 @@ let motherShipPos
 let backgroundMusic1
 
 let menuSizeW = 120
+let buttonSizeW = menuSizeW-40
 
 let musicPlaying
 
@@ -40,10 +41,13 @@ let enemyBullets = []
 //explosions er et tomt array til fjender
 let explosions = []
 let explosion
+let blueExplosion
+
 //abilities er et tomt array til evner
 let abilities = []
 
-
+//Upgrades
+let upgradeB1
 
 
 function preload(){
@@ -62,7 +66,8 @@ function preload(){
   enemySkin1 = loadImage('Pictures/EnemySkin1Red.png')
   enemySkin2 = loadImage('Pictures/RocketEnemySpaceShipTransparent.png')
   enemySkin3 = loadImage('Pictures/EnemySpaceShip3.png')
-  explosion = loadImage('Pictures/explosion1.gif') 
+  explosion = loadImage('Pictures/explosion1.gif')
+  blueExplosion = loadImage('Pictures/blueExplosion.gif')
 
   //Fonts
   starbornFont = loadFont('Fonts/Starborn.ttf')
@@ -77,7 +82,15 @@ function setup() {
   
   textAlign(CENTER)
 
-  
+//////////
+//Buttons
+upgradeB1 = createButton('Upgrade 1')
+upgradeB1.position(width-menuSizeW+menuSizeW/6,200)
+upgradeB1.size(buttonSizeW,40)
+upgradeB1.mousePressed(UpgradeB1Clicked)
+
+
+
 ////////////////////////////////////////////////////////
   // laver player som JSON object med nogle variabler og funktioner 
   // som skal vise den og styre den 
@@ -181,7 +194,7 @@ so this makes the player click to start it, and it start he the player does and 
     let currentEnemyBullet = enemyBullets[i]
     
     if(currentEnemyBullet.y >= motherShipPos){
-      createExplosion(currentEnemyBullet.x, currentEnemyBullet.y)
+      createExplosion(currentEnemyBullet.x, currentEnemyBullet.y,1)
       motherShipLife-=enemyBulletDMG
       enemyBullets.splice(i,1)
     }
@@ -209,7 +222,7 @@ so this makes the player click to start it, and it start he the player does and 
     }
     //This explode the enemy ship if it hits the motherShip and damages the mothership's life
     if(enemies[i].y > motherShipPos){
-      createExplosion(enemies[i].x, enemies[i].y)
+      createExplosion(enemies[i].x, enemies[i].y,1)
       //TAKES LIFE FROM MOTHERSHIP
       motherShipLife -= enemies[i].DMG
 
@@ -241,11 +254,23 @@ for(let i = 0; i < bullets.length; i++){
       bullets.splice(i,1)
       enemies.splice(n,1)
       imageMode(CENTER)
-      createExplosion(currentBullet.x, currentBullet.y)
+      createExplosion(currentBullet.x, currentBullet.y,1)
       
     }
   }
   
+  //Here we look all the enemyBullets through, to check if any of the player bullets is hitting any of them, same concept as above with enemies
+  for(let b = 0; b < enemyBullets.length; b++){
+    let currentEnemyBullet = enemyBullets[b]
+      if(bulletHitEBullet(currentBullet,currentEnemyBullet)){
+
+        bullets.splice(i,1)
+        enemyBullets.splice(b,1)
+        imageMode(CENTER);
+        createExplosion(currentBullet.x, currentBullet.y,2)
+
+      }
+  }
   
 }
   
@@ -254,12 +279,26 @@ for(let i = 0; i < bullets.length; i++){
   for(let p = 0; p < explosions.length; p++){
     //laver en variable der referer til explosionen
     let e = explosions [p]
+
+    //This makes the normal explosion if the sneder said the explosion type should be 1
+    if(e.type == 1){
     image(explosion,e.x,e.y,100,100)
-    
-    //If the current explosion on the screen has been more time on the screen then the variable end says it can, then it removes the explosion
+    //This removes the explosion after the end time
     if(e.end < millis()){
       explosions.splice(p,1)
     }
+
+    }
+    //This makes the blue explosion if the sneder said the explosion type should be 2
+    else if(e.type == 2){
+    image(blueExplosion,e.x,e.y,100,100)
+    //This removes the explosion after the endBlue time
+    if(e.endBlue < millis()){
+      explosions.splice(p,1)
+    }
+    }
+    //If the current explosion on the screen has been more time on the screen then the variable end says it can, then it removes the explosion
+   
   }
   
 }
@@ -271,15 +310,20 @@ for(let i = 0; i < bullets.length; i++){
 ///////////////////////////////////////////////////////////////////////
 
 //When this function is called, then it adds an explosion to the explosions array and places it where the caller ask it to / x,y
-function createExplosion(x,y){
+function createExplosion(x,y,explosionType){
   explosion.reset()
+  blueExplosion.reset()
   let e = {
     x: x,
     y: y,
-    end: millis() + 1000
+    type: explosionType,
+    end: millis() + 1000,
+    endBlue: millis() + 500
   }
   explosions.push(e)
 }
+
+
 
 //////////////////////////////////////////
 //When this function is called, then it returns all infomation about the bullet and its functions to the caller
@@ -412,9 +456,40 @@ function bulletHitEnemy(bullet, enemy){
   return collision
 }
 
+function bulletHitEBullet(bullet,enemyBullet){
+   /*Vi opfatter fjernder og kugler som firkanter
+  derfor gemmer vi deres sider's x og y værdier i nogle variabler*/
+  let EBLeft = enemyBullet.x - enemyBullet.w/2
+  let EBRight = enemyBullet.x + enemyBullet.w/2
+  let EBTop = enemyBullet.y - enemyBullet.h/2
+  let EBBot = enemyBullet.y + enemyBullet.h/2
+  
+  let bulletLeft = bullet.x - bullet.w/2
+  let bulletRight = bullet.x + bullet.w/2
+  let bulletTop = bullet.y - bullet.h/2
+  let bulletBot = bullet.y + bullet.h/2
+  
+  //Nu bruger vi udelukkelsemetoden
+  let collision = true
+  if(//Hvis nogen af dem her er sande så rør kuglen ikke en enemy
+  bulletRight < EBLeft || 
+  bulletLeft > EBRight || 
+  bulletTop > EBBot || 
+  bulletBot < EBTop
+  ){
+     collision = false
+  }
+  //Retunere om de rammer hindanen
+  return collision
+}
+
 function keyPressed(){
   if(key == " "){
     //kalder på shoot funktion inde fra player JSON objektet 
     player.shoot()
   }
+}
+
+function UpgradeB1Clicked(){
+  points +=1
 }
