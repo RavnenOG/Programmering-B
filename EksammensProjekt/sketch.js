@@ -10,7 +10,7 @@ let enemySkin1
 let enemySkin2
 let enemySkin3
 
-let points = 1
+let points = 0
 
 let motherShipStartLife = 100
 let motherShipLife = 100
