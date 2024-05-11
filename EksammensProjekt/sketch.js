@@ -78,31 +78,27 @@ function setup() {
   
   //Here we setup canvas and some basic things used in the game
   createCanvas(windowWidth, windowHeight);
-
   motherShipPos = windowHeight-80; //Mothership position
   textAlign(CENTER);
 
-//////////
-///Buttons
-
+//////////////
+  //Buttons
 //Startmenu
 startB = createButton('Play')
 startB.position(width/2,height/2)
 startB.size(buttonSizeW,40)
 startB.mousePressed(startGame)
-
 //In game
 upgradeB1 = createButton('Upgrade 1')
 upgradeB1.position(width-menuSizeW+menuSizeW/6,200)
 upgradeB1.size(buttonSizeW,40)
 upgradeB1.mousePressed(UpgradeB1Clicked)
 upgradeB1.hide()
-
-
+//////////////
 
 ////////////////////////////////////////////////////////
-  /* Makes the player as a JSON objekt containing variables and functions
-  , that will show it and control it */
+  /*Makes the player as a JSON objekt containing variables and functions, 
+  that will show it and control it */
   player = {
     x:width/2,
     y:height -80,
@@ -142,6 +138,12 @@ function startGame(){
   backgroundMusic1.play();
   frameRate(500)
 }
+
+function gameOver(){
+
+}
+
+
 
 /////
 function draw() {
