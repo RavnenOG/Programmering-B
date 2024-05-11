@@ -25,6 +25,8 @@ let musicPlaying
 
 let starbornFont
 
+//States
+let gameStarted = false
 
 //Damage variables
 let enemyBulletDMG = 1
@@ -74,26 +76,33 @@ function preload(){
 }
 function setup() {
   
-  motherShipPos = windowHeight-80
-  frameRate(500)
+  //Here we setup canvas and some basic things used in the game
   createCanvas(windowWidth, windowHeight);
-  
-//////////
-  
-  textAlign(CENTER)
+
+  motherShipPos = windowHeight-80; //Mothership position
+  textAlign(CENTER);
 
 //////////
-//Buttons
+///Buttons
+
+//Startmenu
+startB = createButton('Play')
+startB.position(width/2,height/2)
+startB.size(buttonSizeW,40)
+startB.mousePressed(startGame)
+
+//In game
 upgradeB1 = createButton('Upgrade 1')
 upgradeB1.position(width-menuSizeW+menuSizeW/6,200)
 upgradeB1.size(buttonSizeW,40)
 upgradeB1.mousePressed(UpgradeB1Clicked)
+upgradeB1.hide()
 
 
 
 ////////////////////////////////////////////////////////
-  // laver player som JSON object med nogle variabler og funktioner 
-  // som skal vise den og styre den 
+  /* Makes the player as a JSON objekt containing variables and functions
+  , that will show it and control it */
   player = {
     x:width/2,
     y:height -80,
@@ -121,18 +130,37 @@ upgradeB1.mousePressed(UpgradeB1Clicked)
       bullets.push(b)
     }
   }
+
+  ////////////////
+frameRate(0)
 }
 
 /////////////////////////////////////////////////////////////////////
 
+function startGame(){
+  gameStarted = true;
+  backgroundMusic1.play();
+  frameRate(500)
+}
+
+/////
 function draw() {
-  
+
+  /////////////////////////////////////////////////////
+  //Here we start the game, but only run it if its supposed to be started
+  if(gameStarted == true){
+    /*Here we hide all the things from the start menu and show all
+    that is needed when the game is started*/
+
+    startB.hide()
+
+    upgradeB1.show()
 
 /////////////////////////////////
 //Music
 /*When you open the sketch online, you can't play music instantly 
 so this makes the player click to start it, and it start he the player does and if the music isn't playing*/
-  if(mouseIsPressed && !musicPlaying){
+  if(!musicPlaying){
     musicPlaying = true
  backgroundMusic1.play()}
 
@@ -300,7 +328,11 @@ for(let i = 0; i < bullets.length; i++){
     //If the current explosion on the screen has been more time on the screen then the variable end says it can, then it removes the explosion
    
   }
-  
+}
+//Above is the game
+//////////////////////////////////////////
+
+//End of draw here
 }
 
 
