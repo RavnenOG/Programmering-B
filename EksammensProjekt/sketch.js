@@ -100,13 +100,13 @@ startB.size(buttonSizeW,40)
 startB.mousePressed(startGame)
 //Death Screen
 tryAgainB = createButton('Try Again')
-tryAgainB.position(width/2-buttonSizeW/2,height/2)
+tryAgainB.position(width/2-buttonSizeW/2,height/2+height/20)
 tryAgainB.size(buttonSizeW,40)
 tryAgainB.mousePressed(startGame)
 tryAgainB.hide()
 
 mainMenuB = createButton('Main Menu')
-mainMenuB.position(width/2-buttonSizeW/2,height/2+height/12)
+mainMenuB.position(width/2-buttonSizeW/2,height/2+height/9)
 mainMenuB.size(buttonSizeW,40)
 mainMenuB.mousePressed(startMenu)
 mainMenuB.hide()
@@ -210,7 +210,9 @@ function gameOver(){
   backgroundMusic1.stop();
   //setting the gameStarted to false, since the game ended
 gameStarted = false;
+if(points > highscore){
 highscore = points
+}
 
 /*Hiding all the buttons that isn't suppose to be used in the death screen
 and showing all that does*/
@@ -225,9 +227,10 @@ rect(0,0,width,height)
 fill(0)
 textSize(width/12)
 textFont(starbornFont)
-text("You died",width/2,height/2-height/14)
+text("You died",width/2,height/2-height/20)
 textSize(width/50)
-text("Highscore: "+highscore,width/2,height/2-height/50)
+text("Highscore: "+highscore,width/2,height/2)
+text("Points: "+points,width/2,height/2+height/30)
 
 frameRate(0)
 }
