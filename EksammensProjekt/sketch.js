@@ -11,9 +11,11 @@ let enemySkin2
 let enemySkin3
 
 let points = 0
+let money = 0
+let highscore = 0
 
 let motherShipStartLife = 100
-let motherShipLife = 100
+let motherShipLife = 5
 let motherShipPos
 
 let backgroundMusic1
@@ -32,7 +34,7 @@ let gameStarted = false
 let enemyBulletDMG = 1
 let enemyShip1DMG = 5
 let enemyShip2DMG = 3
-let enemyShip3DMG = 10
+let enemyShip3DMG = 4
 
 // bullets er et tomt array til skud 
 let bullets = []
@@ -96,6 +98,10 @@ upgradeB1.mousePressed(UpgradeB1Clicked)
 upgradeB1.hide()
 //////////////
 
+//Startmenu splashscreen here
+startMenu()
+
+
 ////////////////////////////////////////////////////////
   /*Makes the player as a JSON objekt containing variables and functions, 
   that will show it and control it */
@@ -133,13 +139,37 @@ frameRate(0)
 
 /////////////////////////////////////////////////////////////////////
 
+function startMenu(){
+  startB.show()
+  textSize(width/12)
+  textFont(starbornFont)
+  text("Space Defender",width/2,height/2-height/16)
+
+}
+
 function startGame(){
   gameStarted = true;
+  points = 0
   backgroundMusic1.play();
   frameRate(500)
 }
 
 function gameOver(){
+highscore = points
+
+/*Hiding all the buttons that isn't suppose to be used in the death screen
+and showing all that does*/
+upgradeB1.hide()
+
+//Setting up how the death screen looks
+fill(0,0,0,120)
+rect(0,0,width,height)
+fill(0)
+textSize(width/12)
+textFont(starbornFont)
+text("You died",width/2,height/2-height/16)
+
+frameRate(0)
 
 }
 
@@ -147,6 +177,7 @@ function gameOver(){
 
 /////
 function draw() {
+
 
   /////////////////////////////////////////////////////
   //Here we start the game, but only run it if its supposed to be started
@@ -331,9 +362,13 @@ for(let i = 0; i < bullets.length; i++){
    
   }
 }
+
+if(motherShipLife <= 0){
+  gameOver()
+}
+
 //Above is the game
 //////////////////////////////////////////
-
 //End of draw here
 }
 
