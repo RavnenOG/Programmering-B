@@ -10,7 +10,7 @@ let enemySkin1
 let enemySkin2
 let enemySkin3
 let startMenuSplashScreen
-let textBackground1
+
 
 let points = 0
 let money = 0
@@ -70,7 +70,7 @@ function preload(){
   startMenuSplashScreen = loadImage('Pictures/startMenuSplashScreenTest.png')
   playingBackground = loadImage('Pictures/playingBack.jpg')
   playingMenu = loadImage('Pictures/menuBack1.gif')
-  textBackground1 = loadImage('Pictures/spaceTextBack.png')
+  
   playerSkin = loadImage('Pictures/playerSkin101.gif')
   mothershipSkin = loadImage('Pictures/MotherShip.png')
   bulletSkin = loadImage('Pictures/playerBullet.png')
@@ -225,10 +225,8 @@ rect(0,0,width,height)
 fill(0)
 textSize(width/12)
 textFont(starbornFont)
-//image(textBackground1,width/2,height/2-height/12,width/2-width/12,height/12)
 text("You died",width/2,height/2-height/14)
 textSize(width/50)
-//image(textBackground1,width/2,height/2-height/50,width/2-width/5,height/30)
 text("Highscore: "+highscore,width/2,height/2-height/50)
 
 frameRate(0)
