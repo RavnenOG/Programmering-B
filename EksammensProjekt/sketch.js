@@ -9,13 +9,14 @@ let enemyBulletSkin
 let enemySkin1
 let enemySkin2
 let enemySkin3
+let startMenuSplashScreen
 
 let points = 0
 let money = 0
 let highscore = 0
 
-let motherShipStartLife = 100
-let motherShipLife = 5
+let motherShipStartLife = 5
+let motherShipLife
 let motherShipPos
 
 let backgroundMusic1
@@ -50,6 +51,10 @@ let blueExplosion
 //abilities er et tomt array til evner
 let abilities = []
 
+  //Buttons
+let mainMenuB
+let tryAgainB
+
 //Upgrades
 let upgradeB1
 
@@ -61,6 +66,7 @@ function preload(){
   
 
   //Pictures and gifs
+  startMenuSplashScreen = loadImage('Pictures/startMenuSplashScreenTest.png')
   playingBackground = loadImage('Pictures/playingBack.jpg')
   playingMenu = loadImage('Pictures/menuBack1.gif')
   playerSkin = loadImage('Pictures/playerSkin101.gif')
@@ -90,6 +96,18 @@ startB = createButton('Play')
 startB.position(width/2,height/2)
 startB.size(buttonSizeW,40)
 startB.mousePressed(startGame)
+//Death Screen
+tryAgainB = createButton('Try Again')
+tryAgainB.position(width/2,height/2)
+tryAgainB.size(buttonSizeW,40)
+tryAgainB.mousePressed(startGame)
+tryAgainB.hide()
+
+mainMenuB = createButton('Main Menu')
+mainMenuB.position(width/2,height/2+height/12)
+mainMenuB.size(buttonSizeW,40)
+mainMenuB.mousePressed(startMenu)
+mainMenuB.hide()
 //In game
 upgradeB1 = createButton('Upgrade 1')
 upgradeB1.position(width-menuSizeW+menuSizeW/6,200)
@@ -140,26 +158,64 @@ frameRate(0)
 /////////////////////////////////////////////////////////////////////
 
 function startMenu(){
+  frameRate(500)
+  //Showing all the right buttons and hiding all that doesn't need to be there
   startB.show()
+
+  tryAgainB.hide()
+  mainMenuB.hide()
+  
+  //Here we make the visuels
+  imageMode(CENTER)
+  image(startMenuSplashScreen,width/2,height/2,width,height)
   textSize(width/12)
   textFont(starbornFont)
   text("Space Defender",width/2,height/2-height/16)
 
+  //Then we set it to frameRate 0 cause it doesn't need to run anything
+  frameRate(0)
 }
 
 function startGame(){
+  /*When we start the game we start by emptying all arrays, 
+  if any games has been played before*/
+  enemies.splice(0,enemies.length)
+  bullets.splice(0,bullets.length)
+  enemyBullets.splice(0,enemyBullets.length)
+  explosions.splice(0,explosions.length)
+  abilities.splice(0,abilities.length)
+
+  //This places the player where it is suppose to start
+  player.x = width/2
+  player.y = height - 80
+
+  //Then we tell the game, that it has started
   gameStarted = true;
+
+  //Then we reset the stats for the in-game things
+  motherShipLife = motherShipStartLife
   points = 0
+
+  //Here we play the music for the game when it begins
   backgroundMusic1.play();
+
+  
   frameRate(500)
 }
 
 function gameOver(){
+  frameRate(500)
+  backgroundMusic1.stop();
+  //setting the gameStarted to false, since the game ended
+gameStarted = false;
 highscore = points
 
 /*Hiding all the buttons that isn't suppose to be used in the death screen
 and showing all that does*/
 upgradeB1.hide()
+
+tryAgainB.show()
+mainMenuB.show()
 
 //Setting up how the death screen looks
 fill(0,0,0,120)
@@ -178,7 +234,6 @@ frameRate(0)
 /////
 function draw() {
 
-
   /////////////////////////////////////////////////////
   //Here we start the game, but only run it if its supposed to be started
   if(gameStarted == true){
@@ -186,6 +241,8 @@ function draw() {
     that is needed when the game is started*/
 
     startB.hide()
+    tryAgainB.hide()
+    mainMenuB.hide()
 
     upgradeB1.show()
 
