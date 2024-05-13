@@ -234,8 +234,6 @@ text("Highscore: "+highscore,width/2,height/2-height/50)
 frameRate(0)
 }
 
-
-
 /////
 function draw() {
 
