@@ -198,7 +198,7 @@ function startGame(){
   motherShipLife = motherShipStartLife
   points = 0
 
-  //Here we play the music for the game when it begins
+  //Here we play the music for the game when it begins 
   backgroundMusic1.play();
 
   
@@ -232,7 +232,6 @@ textSize(width/50)
 text("Highscore: "+highscore,width/2,height/2-height/50)
 
 frameRate(0)
-
 }
 
 
