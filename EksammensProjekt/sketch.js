@@ -2,6 +2,8 @@ let playingBackground
 let playingMenu
 
 let player
+let playerOriSpeed = 6
+
 let playerSkin
 let mothershipSkin
 let bulletSkin
@@ -10,10 +12,12 @@ let enemySkin1
 let enemySkin2
 let enemySkin3
 let startMenuSplashScreen
+let scrapSkin
 
 
 let points = 0
-let money = 0
+let scrap = 0
+let scrapDespawnTime = 10 //scrapDespawnTime is choosen here and is in second, cause it is later down timed by 1000 cause its in millis.
 let highscore = 0
 
 let motherShipStartLife = 5
@@ -29,14 +33,21 @@ let musicPlaying
 
 let starbornFont
 
+let frames = 60
+
 //States
 let gameStarted = false
 
 //Damage variables
 let enemyBulletDMG = 1
-let enemyShip1DMG = 5
-let enemyShip2DMG = 3
-let enemyShip3DMG = 4
+let enemyShip1DMG = 5 //The red ship
+let enemyShip2DMG = 3 //The fast ship
+let enemyShip3DMG = 4 // the shooting ship
+
+//Scrap worth vairables
+let e1Worth = 20 //the red ship
+let e2Worth = 15 //the fast ship
+let e3Worth = 25 //The shooting ship
 
 // bullets er et tomt array til skud 
 let bullets = []
@@ -48,9 +59,11 @@ let enemyBullets = []
 let explosions = []
 let explosion
 let blueExplosion
+//scraps is an empty array for scrap
+let scraps = []
 
-//abilities er et tomt array til evner
-let abilities = []
+
+
 
   //Buttons
 let mainMenuB
@@ -58,6 +71,9 @@ let tryAgainB
 
 //Upgrades
 let upgradeB1
+let upgradeB1Label = "Buy"
+let upgrade1Level = 0
+let upgrade1Cost = 100
 
 
 function preload(){
@@ -80,6 +96,7 @@ function preload(){
   enemySkin3 = loadImage('Pictures/EnemySpaceShip3.png')
   explosion = loadImage('Pictures/explosion1.gif')
   blueExplosion = loadImage('Pictures/blueExplosion.gif')
+  scrapSkin = loadImage('Pictures/scrap.png')
 
   //Fonts
   starbornFont = loadFont('Fonts/Starborn.ttf')
@@ -111,9 +128,10 @@ mainMenuB.size(buttonSizeW,40)
 mainMenuB.mousePressed(startMenu)
 mainMenuB.hide()
 //In game
-upgradeB1 = createButton('Upgrade 1')
-upgradeB1.position(width-menuSizeW+menuSizeW/6,200)
+upgradeB1 = createButton(upgradeB1Label)
+upgradeB1.position(width-menuSizeW+menuSizeW/6,280)
 upgradeB1.size(buttonSizeW,40)
+upgradeB1.style("background","red")
 upgradeB1.mousePressed(UpgradeB1Clicked)
 upgradeB1.hide()
 //////////////
@@ -130,7 +148,7 @@ startMenu()
     y:height -80,
     w:100,
     h:100,
-    s:3,
+    s:playerOriSpeed,
     show: function (){
       //This draws the space ship
       imageMode(CENTER)
@@ -160,7 +178,7 @@ frameRate(0)
 /////////////////////////////////////////////////////////////////////
 
 function startMenu(){
-  frameRate(500)
+  frameRate(frames)
   //Showing all the right buttons and hiding all that doesn't need to be there
   startB.show()
 
@@ -185,7 +203,9 @@ function startGame(){
   bullets.splice(0,bullets.length)
   enemyBullets.splice(0,enemyBullets.length)
   explosions.splice(0,explosions.length)
-  abilities.splice(0,abilities.length)
+  scraps.splice(0,scraps.lenght)
+
+  
 
   //This places the player where it is suppose to start
   player.x = width/2
@@ -197,16 +217,20 @@ function startGame(){
   //Then we reset the stats for the in-game things
   motherShipLife = motherShipStartLife
   points = 0
+  scrap = 0
+  upgrade1Cost = 100
+  upgrade1Level = 0
+  player.s = playerOriSpeed
 
   //Here we play the music for the game when it begins 
   backgroundMusic1.play();
 
   
-  frameRate(500)
+  frameRate(frames)
 }
 
 function gameOver(){
-  frameRate(500)
+  frameRate(frames)
   backgroundMusic1.stop();
   //setting the gameStarted to false, since the game ended
 gameStarted = false;
@@ -276,10 +300,17 @@ so this makes the player click to start it, and it start he the player does and 
   fill(255)
   text("Points: "+points,width-menuSizeW,70,menuSizeW,100)
 
+  text("Scrap: "+scrap,width-menuSizeW,90,menuSizeW,100)
+
   text("Space Defender",width-menuSizeW,20,menuSizeW,100)
 
   text("Mothership life: "+motherShipLife,width-menuSizeW,120,menuSizeW,100)
-/////////////////////
+
+  text("Upgrade 1: +20% Speed",width-menuSizeW,220,menuSizeW,100)
+  textSize(10)
+  text("(Scrap Cost: "+upgrade1Cost+")",width-menuSizeW,250,menuSizeW,100)
+  text("(Level: "+upgrade1Level+")",width-menuSizeW,275,menuSizeW,100)
+  /////////////////////
 
 
   ///////////////////////
@@ -377,6 +408,7 @@ for(let i = 0; i < bullets.length; i++){
       enemies.splice(n,1)
       imageMode(CENTER)
       createExplosion(currentBullet.x, currentBullet.y,1)
+      createScrap(currentBullet.x, currentBullet.y,currentEnemy.scrapWorth)
       
     }
   }
@@ -395,8 +427,39 @@ for(let i = 0; i < bullets.length; i++){
   }
   
 }
+
+
+//////////////////////////////////////////////
+  //Scrap here 
+//This shows all the scrap that needs to be shown
+for(let h = 0; h < scraps.length; h++){
+  scraps[h].show()
+}
+
+
+////////////////////
+//Here we
+for(let h = 0; h < scraps.length; h++){
+  let currentScrap = scraps[h]
+  if(playerHitScrap(currentScrap)){
+    scraps.splice(h,1)
+    scrap += currentScrap.worth
+  }
+  if(currentScrap.endTime < millis()){
+    scraps.splice(h,1)
+  }
+}
+ //This makes the buy button green for all upgrades that can be bought after the latest collected scrap
+ if(scrap >= upgrade1Cost && upgrade1Level < 3){
+  upgradeB1.style("background","green")
+}
+else {upgradeB1.style("background","red")}
+//This changed the label
+if(upgrade1Level < 3){upgradeB1Label = "Maxed"}
+else{upgradeB1Label = "Buy"}//We use an else, so we don't need to change it back to buy if the game restarts
   
-//////////////
+//////////////////////////////////////////
+
 //This runs the explosions array through, and shows all the explosions that needs to be on the screen
   for(let p = 0; p < explosions.length; p++){
     //laver en variable der referer til explosionen
@@ -453,6 +516,22 @@ function createExplosion(x,y,explosionType){
   explosions.push(e)
 }
 
+//
+function createScrap(x,y,worth){
+  let s = {
+    x: x,
+    y: y,
+    w: 40,
+    h: 40,
+    worth: worth,
+    endTime: millis()+ scrapDespawnTime*1000,
+    show: function(){
+      imageMode(CENTER)
+      image(scrapSkin, this.x, this.y, this.w, this.h)
+    }
+  }
+  scraps.push(s)
+}
 
 
 //////////////////////////////////////////
@@ -464,7 +543,7 @@ function createBullet(){
     y: player.y-player.h/2,
     w: 40,
     h: 40,
-    s: 6,
+    s: 11,
     show: function(){
       imageMode(CENTER)
       image(bulletSkin, this.x, this.y, this.w, this.h)
@@ -484,7 +563,7 @@ function createEnemyBullet(x,y,h){
     y: y+h,
     w: 20,
     h: 40,
-    s: 2,
+    s: 5,
     show: function(){
       imageMode(CENTER)
       image(enemyBulletSkin, this.x, this.y, this.w, this.h)
@@ -505,19 +584,23 @@ function createEnemy(type){
     y: -20,
     w: 60,
     h: 60,
-    s: 1,
+    s: 3,
     t: type,
     a: false,
     DMG: 0,
     p: 0,
+    scrapWorth: 0,
     show: function(){
    imageMode(CENTER)
       if(this.t == 1){
-        //Enemy type 1. Medium
+        //Enemy type 1. Medium, Red
     image(enemySkin1, this.x, this.y, this.w, this.h)
         
         //points worth
         this.p = 2
+        //Scrap worth
+        this.scrapWorth = e1Worth
+        //DMG
         this.DMG = enemyShip1DMG
       }
       else if(this.t == 2){
@@ -525,20 +608,21 @@ function createEnemy(type){
         image(enemySkin2, this.x, this.y, this.w, this.h)
         this.w = 35
         this.h = 50
-        this.s = 2
+        this.s = 4
         this.DMG = enemyShip2DMG
-        
+        this.scrapWorth = e2Worth
         //points worth
         this.p = 1
       }
       else if(this.t == 3){
-        //Enemy type 2. Medium- and has ability to shoot
+        //Enemy type 2. Medium and has ability to shoot
         image(enemySkin3, this.x, this.y, this.w, this.h)
         //this.a gives the enemy the ability to shoot
         this.a = true
         this.w = 80
         this.h = 80
         this.DMG = enemyShip3DMG
+        this.scrapWorth = e3Worth
         
         //points worth
         this.p = 3
@@ -557,6 +641,32 @@ function createEnemy(type){
       }
     }
   }
+}
+
+function playerHitScrap(scrapHere){
+  let scrapLeft = scrapHere.x - scrapHere.w/2
+  let scrapRight = scrapHere.x + scrapHere.w/2
+  let scrapTop = scrapHere.y - scrapHere.h/2
+  let scrapBot = scrapHere.y + scrapHere.h/2
+  
+  let playerLeft = player.x - player.w/2
+  let playerRight = player.x + player.w/2
+  let playerTop = player.y - player.h/2
+  let playerBot = player.y + player.h/2
+
+  //Then we use the exclusion method
+  let collision = true
+  if(//Hvis nogen af dem her er sande så rør kuglen ikke en enemy
+  playerRight < scrapLeft || 
+  playerLeft > scrapRight || 
+  playerTop > scrapBot || 
+  playerBot < scrapTop
+  ){
+     collision = false
+  }
+
+  //Retuns boolean to tell if they hit
+  return collision
 }
 
 function bulletHitEnemy(bullet, enemy){
@@ -582,7 +692,7 @@ function bulletHitEnemy(bullet, enemy){
   ){
      collision = false
   }
-  //Retunere om de rammer hindanen
+  //Retuns boolean to tell if they hit
   return collision
 }
 
@@ -609,7 +719,7 @@ function bulletHitEBullet(bullet,enemyBullet){
   ){
      collision = false
   }
-  //Retunere om de rammer hindanen
+  //Retuns boolean to tell if they hit
   return collision
 }
 
@@ -621,5 +731,12 @@ function keyPressed(){
 }
 
 function UpgradeB1Clicked(){
-  points +=1
+  if(scrap >= upgrade1Cost && upgrade1Level < 3){
+  //This adds 20% of the original player speed to the player speed
+  player.s += playerOriSpeed*0.2
+  //This adds an level to the upgrade, removes the scrap used and sets up the scrap cost
+  upgrade1Level+=1
+  scrap -= upgrade1Cost
+  upgrade1Cost += 100
+  }
 }
