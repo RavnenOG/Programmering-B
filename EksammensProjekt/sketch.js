@@ -80,7 +80,7 @@ function preload(){
   
 
   //Pictures and gifs
-  startMenuSplashScreen = loadImage('Pictures/startMenuSplashScreenTest.png')
+  startMenuSplashScreen = loadImage('Pictures/splashScreenTest.PNG')
   playingBackground = loadImage('Pictures/playingBack.jpg')
   playingMenu = loadImage('Pictures/menuBack1.gif')
   
