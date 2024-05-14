@@ -20,7 +20,7 @@ let scrap = 0
 let scrapDespawnTime = 10 //scrapDespawnTime is choosen here and is in second, cause it is later down timed by 1000 cause its in millis.
 let highscore = 0
 
-let motherShipStartLife = 5
+let motherShipStartLife = 100
 let motherShipLife
 let motherShipPos
 
@@ -62,9 +62,6 @@ let blueExplosion
 //scraps is an empty array for scrap
 let scraps = []
 
-
-
-
   //Buttons
 let mainMenuB
 let tryAgainB
@@ -73,7 +70,7 @@ let tryAgainB
 let upgradeB1
 let upgrade1Level = 0
 let upgrade1Cost
-let upgrade1OriCost = 1
+let upgrade1OriCost = 100
 
 
 function preload(){
@@ -308,7 +305,9 @@ so this makes the player click to start it, and it start he the player does and 
 
   text("Upgrade 1: +20% Speed",width-menuSizeW,220,menuSizeW,100)
   textSize(10)
+  if(upgrade1Level < 3){ //This removes the text with how much it cost if the level hits 3, which is max
   text("(Scrap Cost: "+upgrade1Cost+")",width-menuSizeW,250,menuSizeW,100)
+  }
   text("(Level: "+upgrade1Level+")",width-menuSizeW,275,menuSizeW,100)
   /////////////////////
 
