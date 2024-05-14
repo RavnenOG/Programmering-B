@@ -71,9 +71,9 @@ let tryAgainB
 
 //Upgrades
 let upgradeB1
-let upgradeB1Label = "Buy"
 let upgrade1Level = 0
-let upgrade1Cost = 100
+let upgrade1Cost
+let upgrade1OriCost = 1
 
 
 function preload(){
@@ -128,7 +128,7 @@ mainMenuB.size(buttonSizeW,40)
 mainMenuB.mousePressed(startMenu)
 mainMenuB.hide()
 //In game
-upgradeB1 = createButton(upgradeB1Label)
+upgradeB1 = createButton('Buy')
 upgradeB1.position(width-menuSizeW+menuSizeW/6,280)
 upgradeB1.size(buttonSizeW,40)
 upgradeB1.style("background","red")
@@ -218,7 +218,7 @@ function startGame(){
   motherShipLife = motherShipStartLife
   points = 0
   scrap = 0
-  upgrade1Cost = 100
+  upgrade1Cost = upgrade1OriCost
   upgrade1Level = 0
   player.s = playerOriSpeed
 
@@ -455,8 +455,10 @@ for(let h = 0; h < scraps.length; h++){
 }
 else {upgradeB1.style("background","red")}
 //This changed the label
-if(upgrade1Level < 3){upgradeB1Label = "Maxed"}
-else{upgradeB1Label = "Buy"}//We use an else, so we don't need to change it back to buy if the game restarts
+if(upgrade1Level == 3)
+{upgradeB1.html("Maxed")}
+else
+{upgradeB1.html("Buy")}//We use an else, so we don't need to change it back to buy if the game restarts
   
 //////////////////////////////////////////
 
@@ -737,6 +739,6 @@ function UpgradeB1Clicked(){
   //This adds an level to the upgrade, removes the scrap used and sets up the scrap cost
   upgrade1Level+=1
   scrap -= upgrade1Cost
-  upgrade1Cost += 100
+  upgrade1Cost += upgrade1OriCost
   }
 }
