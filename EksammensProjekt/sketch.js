@@ -39,10 +39,10 @@ let frames = 60
 let gameStarted = false
 
 //Damage variables
-let enemyBulletDMG = 1
-let enemyShip1DMG = 5 //The red ship
-let enemyShip2DMG = 3 //The fast ship
-let enemyShip3DMG = 4 // the shooting ship
+let enemyBulletDMG = 5
+let enemyShip1DMG = 20 //The red ship
+let enemyShip2DMG = 10 //The fast ship
+let enemyShip3DMG = 15 // the shooting ship
 
 //Scrap worth vairables
 let e1Worth = 20 //the red ship
@@ -71,6 +71,11 @@ let upgradeB1
 let upgrade1Level = 0
 let upgrade1Cost
 let upgrade1OriCost = 100
+
+let upgradeB2
+let upgrade2Level = 0
+let upgrade2Cost
+let upgrade2OriCost = 100
 
 
 function preload(){
@@ -131,6 +136,13 @@ upgradeB1.size(buttonSizeW,40)
 upgradeB1.style("background","red")
 upgradeB1.mousePressed(UpgradeB1Clicked)
 upgradeB1.hide()
+
+upgradeB2 = createButton('Buy')
+upgradeB2.position(width-menuSizeW+menuSizeW/6,500)
+upgradeB2.size(buttonSizeW,40)
+upgradeB2.style("background","red")
+upgradeB2.mousePressed(UpgradeB2Clicked)
+upgradeB2.hide()
 //////////////
 
 //Startmenu splashscreen here
@@ -147,24 +159,58 @@ startMenu()
     h:100,
     s:playerOriSpeed,
     show: function (){
-      //This draws the space ship
       imageMode(CENTER)
+       //This draws the smaller smaller ship if upgrade 2 level 2 is unlocked
+       if(upgrade2Level >= 2){
+        image(playerSkin,this.x-this.w,this.y+this.h/5,this.w/2+this.w/6,this.h/2+this.h/8)
+        image(playerSkin,this.x+this.w,this.y+this.h/5,this.w/2+this.w/6,this.h/2+this.h/8)
+      }
+      //This draws the smaller ships if the upgrade is unlocked
+      if(upgrade2Level >= 1){
+        image(playerSkin,this.x-this.w/2,this.y+this.h/10,this.w/2+this.w/3,this.h/2+this.h/4)
+        image(playerSkin,this.x+this.w/2,this.y+this.h/10,this.w/2+this.w/3,this.h/2+this.h/4)
+      }
+      ///This draws the main space ship
       image(playerSkin, this.x, this.y, this.w, this.h)
+      
     },
     move: function(directionX, directionY){
-      //Flyt playerens x og y værdi
+      //This moves the player's x and y value
       this.x += directionX * this.s
       this.y += directionY * this.s
-      //begræns x og y værdien til skærmen
+      //This constrains the player's x and y value to the screen
+      if(upgrade2Level == 0){
       this.x = constrain(this.x, this.w/2, width - this.w/2-menuSizeW)
       this.y = constrain(this.y, this.h/2, height - this.h/2)
-
+      }
+      else if(upgrade2Level == 1){
+        this.x = constrain(this.x, this.w/2+this.w/4+this.w/6/*i am using this cause its half of the to ships*/, width - this.w/2-this.w/4-this.w/6/*same here*/-menuSizeW)
+        this.y = constrain(this.y, this.h/2, height - this.h/2)
+      }
+      else if(upgrade2Level == 2){
+        this.x = constrain(this.x, this.w+this.w/3, width - this.w-this.w/3-menuSizeW)
+        this.y = constrain(this.y, this.h/2, height - this.h/2)
+      }
     },
     shoot: function(){
       // createBullet returnere et JSON object som er en kugle 
-    let b = createBullet()
+    let b1 = createBullet(this.x,this.y,this.h)
     //bullets er array med kugler
-      bullets.push(b)
+      bullets.push(b1)
+      //This creates the bullet for the other 2 ships if its upgrade 1 and up
+      if(upgrade2Level >= 1){
+        let b2 = createBullet(this.x-this.w/2,this.y+this.h/10,this.h/2+this.h/4)
+      bullets.push(b2)
+      let b3 = createBullet(this.x+this.w/2,this.y+this.h/10,this.h/2+this.h/4)
+      bullets.push(b3)
+      }
+      //This creates the bullet for the other 2 ships if its upgrade 2
+      if(upgrade2Level == 2){
+        let b4 = createBullet(this.x-this.w,this.y+this.h/5,this.h/2+this.h/8)
+      bullets.push(b4)
+      let b5 = createBullet(this.x+this.w,this.y+this.h/5,this.h/2+this.h/8)
+      bullets.push(b5)
+      }
     }
   }
 
@@ -218,6 +264,8 @@ function startGame(){
   upgrade1Cost = upgrade1OriCost
   upgrade1Level = 0
   player.s = playerOriSpeed
+  upgrade2Cost = upgrade2OriCost
+  upgrade2Level = 2
 
   //Here we play the music for the game when it begins 
   backgroundMusic1.play();
@@ -238,6 +286,7 @@ highscore = points
 /*Hiding all the buttons that isn't suppose to be used in the death screen
 and showing all that does*/
 upgradeB1.hide()
+upgradeB2.hide()
 
 tryAgainB.show()
 mainMenuB.show()
@@ -270,6 +319,7 @@ function draw() {
     mainMenuB.hide()
 
     upgradeB1.show()
+    upgradeB2.show()
 
 /////////////////////////////////
 //Music
@@ -303,12 +353,22 @@ so this makes the player click to start it, and it start he the player does and 
 
   text("Mothership life: "+motherShipLife,width-menuSizeW,120,menuSizeW,100)
 
+  //Upgrade 1
   text("Upgrade 1: +20% Speed",width-menuSizeW,220,menuSizeW,100)
   textSize(10)
   if(upgrade1Level < 3){ //This removes the text with how much it cost if the level hits 3, which is max
   text("(Scrap Cost: "+upgrade1Cost+")",width-menuSizeW,250,menuSizeW,100)
   }
   text("(Level: "+upgrade1Level+")",width-menuSizeW,275,menuSizeW,100)
+
+  //Upgrade 2
+  text("Upgrade 2: +2 Ships",width-menuSizeW,440,menuSizeW,100)
+  textSize(10)
+  if(upgrade2Level < 2){ //This removes the text with how much it cost if the level hits 3, which is max
+  text("(Scrap Cost: "+upgrade2Cost+")",width-menuSizeW,470,menuSizeW,100)
+  }
+  text("(Level: "+upgrade2Level+")",width-menuSizeW,495,menuSizeW,100)
+
   /////////////////////
 
 
@@ -449,6 +509,7 @@ for(let h = 0; h < scraps.length; h++){
   }
 }
  //This makes the buy button green for all upgrades that can be bought after the latest collected scrap
+ //This for upgrade button 1
  if(scrap >= upgrade1Cost && upgrade1Level < 3){
   upgradeB1.style("background","green")
 }
@@ -458,7 +519,18 @@ if(upgrade1Level == 3)
 {upgradeB1.html("Maxed")}
 else
 {upgradeB1.html("Buy")}//We use an else, so we don't need to change it back to buy if the game restarts
-  
+
+//This for upgrade button 2
+if(scrap >= upgrade2Cost && upgrade2Level < 2){
+  upgradeB2.style("background","green")
+}
+else {upgradeB2.style("background","red")}
+//This changed the label
+if(upgrade2Level == 2)
+{upgradeB2.html("Maxed")}
+else
+{upgradeB2.html("Buy")}
+
 //////////////////////////////////////////
 
 //This runs the explosions array through, and shows all the explosions that needs to be on the screen
@@ -537,16 +609,17 @@ function createScrap(x,y,worth){
 
 //////////////////////////////////////////
 //When this function is called, then it returns all infomation about the bullet and its functions to the caller
-function createBullet(){
+function createBullet(x,y,h){
   //return gives the object with the bullet back to, who called the function
   return {
-    x: player.x,
-    y: player.y-player.h/2,
+    x: x,
+    y: y-h/2,
     w: 40,
     h: 40,
     s: 11,
     show: function(){
       imageMode(CENTER)
+      //This shows the bullet
       image(bulletSkin, this.x, this.y, this.w, this.h)
     },
     move: function(){
@@ -645,15 +718,34 @@ function createEnemy(type){
 }
 
 function playerHitScrap(scrapHere){
+  //This assign where all the scrap sides is
   let scrapLeft = scrapHere.x - scrapHere.w/2
   let scrapRight = scrapHere.x + scrapHere.w/2
   let scrapTop = scrapHere.y - scrapHere.h/2
   let scrapBot = scrapHere.y + scrapHere.h/2
   
-  let playerLeft = player.x - player.w/2
-  let playerRight = player.x + player.w/2
-  let playerTop = player.y - player.h/2
-  let playerBot = player.y + player.h/2
+  //This makes variables for all the players sides
+  let playerLeft
+  let playerRight
+  let playerTop
+  let playerBot
+
+  //This assign all the players sides, based on which upgrade2 level it is. Upgrade 2 makes it bigger
+  if(upgrade2Level == 0){
+  playerLeft = player.x - player.w/2
+  playerRight = player.x + player.w/2
+  playerTop = player.y - player.h/2
+  playerBot = player.y + player.h/2}
+  else if(upgrade2Level == 1){
+  playerLeft = player.x - player.w-player.w/3
+  playerRight = player.x + player.w+player.w/3
+  playerTop = player.y - player.h/2
+  playerBot = player.y + player.h/2}
+  else if(upgrade2Level == 2){
+    playerLeft = player.x - player.w-player.w/6
+    playerRight = player.x + player.w+player.w/6
+    playerTop = player.y - player.h/2
+    playerBot = player.y + player.h/2}
 
   //Then we use the exclusion method
   let collision = true
@@ -740,4 +832,13 @@ function UpgradeB1Clicked(){
   scrap -= upgrade1Cost
   upgrade1Cost += upgrade1OriCost
   }
+}
+
+function UpgradeB2Clicked(){
+  if(scrap >= upgrade2Cost && upgrade2Level < 2){
+
+    upgrade2Level+=1
+    scrap -= upgrade2Cost
+    upgrade2Cost += upgrade2OriCost
+    }
 }
