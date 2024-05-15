@@ -75,7 +75,7 @@ let upgrade1OriCost = 100
 let upgradeB2
 let upgrade2Level = 0
 let upgrade2Cost
-let upgrade2OriCost = 100
+let upgrade2OriCost = 500
 
 
 function preload(){
@@ -265,7 +265,7 @@ function startGame(){
   upgrade1Level = 0
   player.s = playerOriSpeed
   upgrade2Cost = upgrade2OriCost
-  upgrade2Level = 2
+  upgrade2Level = 0
 
   //Here we play the music for the game when it begins 
   backgroundMusic1.play();
