@@ -35,6 +35,9 @@ let starbornFont
 
 let frames = 60
 
+let enemySpawnTimer = 200 //The less the number the faster they come
+let difficulty = 1
+
 //States
 let gameStarted = false
 
@@ -45,9 +48,9 @@ let enemyShip2DMG = 10 //The fast ship
 let enemyShip3DMG = 15 // the shooting ship
 
 //Scrap worth vairables
-let e1Worth = 20 //the red ship
-let e2Worth = 15 //the fast ship
-let e3Worth = 25 //The shooting ship
+let e1Worth = 15 //the red ship
+let e2Worth = 10 //the fast ship
+let e3Worth = 20 //The shooting ship
 
 // bullets er et tomt array til skud 
 let bullets = []
@@ -193,6 +196,7 @@ startMenu()
       }
     },
     shoot: function(){
+    if(bulletReady){
       // createBullet returnere et JSON object som er en kugle 
     let b1 = createBullet(this.x,this.y,this.h)
     //bullets er array med kugler
@@ -211,6 +215,7 @@ startMenu()
       let b5 = createBullet(this.x+this.w,this.y+this.h/5,this.h/2+this.h/8)
       bullets.push(b5)
       }
+    }
     }
   }
 
@@ -258,6 +263,8 @@ function startGame(){
   gameStarted = true;
 
   //Then we reset the stats for the in-game things
+  enemySpawnTimer = 200
+  difficulty = 1
   motherShipLife = motherShipStartLife
   points = 0
   scrap = 0
@@ -353,6 +360,7 @@ so this makes the player click to start it, and it start he the player does and 
 
   text("Mothership life: "+motherShipLife,width-menuSizeW,120,menuSizeW,100)
 
+  text("Difficulty: "+difficulty,width-menuSizeW,170,menuSizeW,100)
   //Upgrade 1
   text("Upgrade 1: +20% Speed",width-menuSizeW,220,menuSizeW,100)
   textSize(10)
@@ -416,12 +424,17 @@ so this makes the player click to start it, and it start he the player does and 
   //Enemies
   //Modulo means when there is 0 left of division, then the if statement is met
   //When a certern amount of time has passed, it spawns a new enemy
-  if(frameCount % 200 == 0){
+  if(frameCount % enemySpawnTimer == 0){
     //EnemyType chooses the type of enemy that is spawned
     let enemyType = round(random(1,3))
     let e = createEnemy(enemyType)
     enemies.push(e)
-
+  }
+  if(frameCount % 1000 == 0){
+    if(difficulty < 10){
+    enemySpawnTimer -= 15
+    difficulty += 1
+    }
   }
   
   /*Running all enemies in the enemies array through,
