@@ -3,6 +3,7 @@ let playingMenu
 
 let player
 let playerOriSpeed = 6
+let bulletReady
 
 let playerSkin
 let mothershipSkin
@@ -263,16 +264,17 @@ function startGame(){
   gameStarted = true;
 
   //Then we reset the stats for the in-game things
-  enemySpawnTimer = 200
-  difficulty = 1
-  motherShipLife = motherShipStartLife
-  points = 0
-  scrap = 0
-  upgrade1Cost = upgrade1OriCost
-  upgrade1Level = 0
-  player.s = playerOriSpeed
-  upgrade2Cost = upgrade2OriCost
-  upgrade2Level = 0
+  bulletReady = true;
+  enemySpawnTimer = 200;
+  difficulty = 1;
+  motherShipLife = motherShipStartLife;
+  points = 0;
+  scrap = 0;
+  upgrade1Cost = upgrade1OriCost;
+  upgrade1Level = 0;
+  player.s = playerOriSpeed;
+  upgrade2Cost = upgrade2OriCost;
+  upgrade2Level = 0;
 
   //Here we play the music for the game when it begins 
   backgroundMusic1.play();
