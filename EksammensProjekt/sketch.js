@@ -747,7 +747,6 @@ function createEnemy(type){
     //The shoot function is an ability that the enemy can have to spawn a bullet or as      said shoot
     shoot: function(){
       if(frameCount % 300 == 0){
-        console.log("Enemy has shot a shot")
           let eb = createEnemyBullet(this.x,this.y,this.h)
     //enemyBullets er array med fjendernes kugler
       enemyBullets.push(eb)
