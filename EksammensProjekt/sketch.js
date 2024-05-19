@@ -142,12 +142,13 @@ upgradeB1.mousePressed(UpgradeB1Clicked)
 upgradeB1.hide()
 
 upgradeB2 = createButton('Buy')
-upgradeB2.position(width-menuSizeW+menuSizeW/6,500)
+upgradeB2.position(width-menuSizeW+menuSizeW/6,480)
 upgradeB2.size(buttonSizeW,40)
 upgradeB2.style("background","red")
 upgradeB2.mousePressed(UpgradeB2Clicked)
 upgradeB2.hide()
 //////////////
+
 
 //Startmenu splashscreen here
 startMenu()
@@ -197,7 +198,10 @@ startMenu()
       }
     },
     shoot: function(){
-    if(bulletReady){
+      //First we check if there is any bullets ready to be used
+    if(bulletReady >= 1){
+      //When is the if statement is true, we then remove the bullet used
+      bulletReady -= 1;
       // createBullet returnere et JSON object som er en kugle 
     let b1 = createBullet(this.x,this.y,this.h)
     //bullets er array med kugler
@@ -264,7 +268,7 @@ function startGame(){
   gameStarted = true;
 
   //Then we reset the stats for the in-game things
-  bulletReady = true;
+  bulletReady = 3;
   enemySpawnTimer = 200;
   difficulty = 1;
   motherShipLife = motherShipStartLife;
@@ -372,12 +376,23 @@ so this makes the player click to start it, and it start he the player does and 
   text("(Level: "+upgrade1Level+")",width-menuSizeW,275,menuSizeW,100)
 
   //Upgrade 2
-  text("Upgrade 2: +2 Ships",width-menuSizeW,440,menuSizeW,100)
+  text("Upgrade 2: +2 Ships",width-menuSizeW,420,menuSizeW,100)
   textSize(10)
   if(upgrade2Level < 2){ //This removes the text with how much it cost if the level hits 3, which is max
-  text("(Scrap Cost: "+upgrade2Cost+")",width-menuSizeW,470,menuSizeW,100)
+  text("(Scrap Cost: "+upgrade2Cost+")",width-menuSizeW,450,menuSizeW,100)
   }
-  text("(Level: "+upgrade2Level+")",width-menuSizeW,495,menuSizeW,100)
+  text("(Level: "+upgrade2Level+")",width-menuSizeW,475,menuSizeW,100)
+
+  //Bullets
+  textSize(15)
+  text("Bullets:",width-menuSizeW,630,menuSizeW,100)
+  imageMode(CENTER)
+  if(bulletReady >= 1){
+  image(bulletSkin,width-menuSizeW+menuSizeW/4,660,50,50)};
+  if(bulletReady >= 2){
+  image(bulletSkin,width-menuSizeW+menuSizeW/2,660,50,50)}
+  if(bulletReady >= 3){
+  image(bulletSkin,width-menuSizeW/4,660,50,50)}
 
   /////////////////////
 
@@ -438,6 +453,15 @@ so this makes the player click to start it, and it start he the player does and 
     difficulty += 1
     }
   }
+
+  ////////////
+  //This gives you a new bullet every specific second
+  if(bulletReady < 3 && frameCount % 100 == 0){
+ bulletReady += 1
+  }
+
+
+  ///////
   
   /*Running all enemies in the enemies array through,
   and calling enemies show and move function for each enemy*/
