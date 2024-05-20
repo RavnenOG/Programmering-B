@@ -536,7 +536,7 @@ for(let h = 0; h < scraps.length; h++){
 
 
 ////////////////////
-//Here we
+//Here we check if the player hit any scrap
 for(let h = 0; h < scraps.length; h++){
   let currentScrap = scraps[h]
   if(playerHitScrap(currentScrap)){
@@ -564,7 +564,7 @@ if(scrap >= upgrade2Cost && upgrade2Level < 2){
   upgradeB2.style("background","green")
 }
 else {upgradeB2.style("background","red")}
-//This changed the label
+//This changes the label
 if(upgrade2Level == 2)
 {upgradeB2.html("Maxed")}
 else
@@ -628,21 +628,22 @@ function createExplosion(x,y,explosionType){
   explosions.push(e)
 }
 
-//
+/*When this function is called, it creates scrap where the caller 
+says to by x and y and gives it the worth that the caller says to*/
 function createScrap(x,y,worth){
   let s = {
     x: x,
     y: y,
     w: 40,
     h: 40,
-    worth: worth,
-    endTime: millis()+ scrapDespawnTime*1000,
-    show: function(){
+    worth: worth,//This valiable tells how much worth the scrap is
+    endTime: millis()+ scrapDespawnTime*1000,//this valiable is to tell when it needs to despawn
+    show: function(){//this function is to display the scrap on screen
       imageMode(CENTER)
       image(scrapSkin, this.x, this.y, this.w, this.h)
     }
   }
-  scraps.push(s)
+  scraps.push(s)//This pushes the scrap just made above into the scrap array
 }
 
 
@@ -801,8 +802,8 @@ function playerHitScrap(scrapHere){
 }
 
 function bulletHitEnemy(bullet, enemy){
-  /*Vi opfatter fjernder og kugler som firkanter
-  derfor gemmer vi deres sider's x og y værdier i nogle variabler*/
+  /*We perceive enemies and bullets as squares, therefore we save their sides
+  as x and y values, by taking where they are and how big they are*/
   let enemyLeft = enemy.x - enemy.w/2
   let enemyRight = enemy.x + enemy.w/2
   let enemyTop = enemy.y - enemy.h/2
@@ -813,9 +814,10 @@ function bulletHitEnemy(bullet, enemy){
   let bulletTop = bullet.y - bullet.h/2
   let bulletBot = bullet.y + bullet.h/2
   
-  //Nu bruger vi udelukkelsemetoden
+  //We make a variable that we set to true and can set to false if the bullet didn't hit the enemy
   let collision = true
-  if(//Hvis nogen af dem her er sande så rør kuglen ikke en enemy
+  //Then we use the exclusion method to figure out if the bullet hit the enemy
+  if(//If any if these are true, then the bullet didn't hit the enemy and
   bulletRight < enemyLeft || 
   bulletLeft > enemyRight || 
   bulletTop > enemyBot || 
@@ -828,8 +830,8 @@ function bulletHitEnemy(bullet, enemy){
 }
 
 function bulletHitEBullet(bullet,enemyBullet){
-   /*Vi opfatter fjernder og kugler som firkanter
-  derfor gemmer vi deres sider's x og y værdier i nogle variabler*/
+   /*We perceive enemies and bullets as squares, therefore we save their sides
+   as x and y values, by taking where they are and how big they are*/
   let EBLeft = enemyBullet.x - enemyBullet.w/2
   let EBRight = enemyBullet.x + enemyBullet.w/2
   let EBTop = enemyBullet.y - enemyBullet.h/2
