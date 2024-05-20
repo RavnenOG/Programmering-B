@@ -134,12 +134,12 @@ mainMenuB.size(buttonSizeW,40)
 mainMenuB.mousePressed(startMenu)
 mainMenuB.hide()
 //In game
-upgradeB1 = createButton('Buy')
-upgradeB1.position(width-menuSizeW+menuSizeW/6,280)
-upgradeB1.size(buttonSizeW,40)
-upgradeB1.style("background","red")
-upgradeB1.mousePressed(UpgradeB1Clicked)
-upgradeB1.hide()
+upgradeB1 = createButton('Buy')//This creates the button and calles it buy
+upgradeB1.position(width-menuSizeW+menuSizeW/6,280)//This sets the button's position
+upgradeB1.size(buttonSizeW,40)//This sets the button's size
+upgradeB1.style("background","red")//This changes the button's background to red
+upgradeB1.mousePressed(UpgradeB1Clicked)//This runs the UpgradeB1Clicked function if the button is clicked
+upgradeB1.hide()//This hides the button until the .show() function is used on the button
 
 upgradeB2 = createButton('Buy')
 upgradeB2.position(width-menuSizeW+menuSizeW/6,480)
@@ -864,7 +864,9 @@ function keyPressed(){
 }
 
 function UpgradeB1Clicked(){
-  if(scrap >= upgrade1Cost && upgrade1Level < 3){
+  /*When the function is called, it ask with an if statement, if the player have enough scrap for the upgrade
+  and the upgrade isn't maxed out*/
+  if(scrap >= upgrade1Cost && upgrade1Level < 3){//If both of thse are true then the if statement runs
   //This adds 20% of the original player speed to the player speed
   player.s += playerOriSpeed*0.2
   //This adds an level to the upgrade, removes the scrap used and sets up the scrap cost
