@@ -1,6 +1,6 @@
  //Here is all the variables used in the game
 
- let frames = 60
+let frames = 60
 
 //Backgrounds
 let playingBackground
@@ -38,14 +38,9 @@ let motherShipStartLife = 100
 let motherShipLife
 let motherShipPos
 
-
 //Menu and buttons
 let menuSizeW = 120
 let buttonSizeW = menuSizeW-40
-
-
-
-
 
 //Difficulty
 let enemySpawnTimer = 200 //The less the number the faster they come
@@ -87,11 +82,11 @@ let blueExplosion
 //Scraps is an empty array for scrap
 let scraps = []
 
-//Buttons
+  //Buttons
 let mainMenuB
 let tryAgainB
 
-//Upgrades
+//Upgrades  
 let upgradeB1
 let upgrade1Level = 0
 let upgrade1Cost
@@ -101,7 +96,6 @@ let upgradeB2
 let upgrade2Level = 0
 let upgrade2Cost
 let upgrade2OriCost = 500
-
 
 function preload(){
   //Sounds and music
