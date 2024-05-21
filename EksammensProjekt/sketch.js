@@ -25,7 +25,7 @@ let motherShipStartLife = 100
 let motherShipLife
 let motherShipPos
 
-let backgroundMusic1
+
 
 let menuSizeW = 120
 let buttonSizeW = menuSizeW-40
@@ -39,6 +39,12 @@ let frames = 60
 let enemySpawnTimer = 200 //The less the number the faster they come
 let difficulty = 1
 
+//Music and sound
+let backgroundMusic1
+let spaceShipEnteringSound
+let heavyExplosionSound
+let laserSound
+
 //States
 let gameStarted = false
 
@@ -49,9 +55,9 @@ let enemyShip2DMG = 10 //The fast ship
 let enemyShip3DMG = 15 // the shooting ship
 
 //Scrap worth vairables
-let e1Worth = 15 //the red ship
-let e2Worth = 10 //the fast ship
-let e3Worth = 20 //The shooting ship
+let e1Worth = 20 //the red ship
+let e2Worth = 15 //the fast ship
+let e3Worth = 25 //The shooting ship
 
 // bullets er et tomt array til skud 
 let bullets = []
@@ -86,7 +92,9 @@ function preload(){
   //Sounds and music
   soundFormats('mp3', 'ogg');
   backgroundMusic1 = loadSound('SoundsMusic/Videoclub Roi Intrumental FULL compressed.mp3')
-  
+  laserSound = loadSound('SoundsMusic/laserSoundCom.mp3')
+  spaceShipEnteringSound = loadSound('SoundsMusic/spaceshipEnteringCom.mp3')
+  heavyExplosionSound = loadSound('SoundsMusic/heavyExplosion1Sound.mp3')
 
   //Pictures and gifs
   startMenuSplashScreen = loadImage('Pictures/splashScreenTest.PNG')
@@ -113,6 +121,9 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   motherShipPos = windowHeight-80; //Mothership position
   textAlign(CENTER);
+
+  //
+  
 
 //////////////
   //Buttons
@@ -202,6 +213,12 @@ startMenu()
     if(bulletReady >= 1){
       //When is the if statement is true, we then remove the bullet used
       bulletReady -= 1;
+
+      //This checks if the sound is already playing and stops it
+      if(laserSound.isPlaying()){laserSound.stop()}
+      //This plays the sound for it
+     laserSound.play()
+
       // createBullet returnere et JSON object som er en kugle 
     let b1 = createBullet(this.x,this.y,this.h)
     //bullets er array med kugler
@@ -456,7 +473,7 @@ so this makes the player click to start it, and it start he the player does and 
 
   ////////////
   //This gives you a new bullet every specific second
-  if(bulletReady < 3 && frameCount % 100 == 0){
+  if(bulletReady < 3 && frameCount % 75 == 0){
  bulletReady += 1
   }
 
@@ -516,9 +533,13 @@ for(let i = 0; i < bullets.length; i++){
   for(let b = 0; b < enemyBullets.length; b++){
     let currentEnemyBullet = enemyBullets[b]
       if(bulletHitEBullet(currentBullet,currentEnemyBullet)){
-
+        //this gives the player the amount of points that the enemy bullet is worth
+        points += currentEnemyBullet.p
+        //This removes the player bullet from the array
         bullets.splice(i,1)
+        //This removes the nemy bullet fro mthe array
         enemyBullets.splice(b,1)
+        //This creates an explosion where the player bullet hit the enemy bullet
         imageMode(CENTER);
         createExplosion(currentBullet.x, currentBullet.y,2)
 
@@ -679,6 +700,7 @@ function createEnemyBullet(x,y,h){
     w: 20,
     h: 40,
     s: 5,
+    p: 1,
     show: function(){
       imageMode(CENTER)
       image(enemyBulletSkin, this.x, this.y, this.w, this.h)
@@ -712,7 +734,7 @@ function createEnemy(type){
     image(enemySkin1, this.x, this.y, this.w, this.h)
         
         //points worth
-        this.p = 2
+        this.p = 8
         //Scrap worth
         this.scrapWorth = e1Worth
         //DMG
@@ -727,7 +749,7 @@ function createEnemy(type){
         this.DMG = enemyShip2DMG
         this.scrapWorth = e2Worth
         //points worth
-        this.p = 1
+        this.p = 5
       }
       else if(this.t == 3){
         //Enemy type 2. Medium and has ability to shoot
@@ -740,7 +762,7 @@ function createEnemy(type){
         this.scrapWorth = e3Worth
         
         //points worth
-        this.p = 3
+        this.p = 10
       }
   },
     move: function(){
