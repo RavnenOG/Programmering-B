@@ -1,3 +1,4 @@
+//Her er alle variablerne som vi bruger i spillet
 let playingBackground
 let playingMenu
 
@@ -5,6 +6,7 @@ let player
 let playerOriSpeed = 6
 let bulletReady
 
+//SKins
 let playerSkin
 let mothershipSkin
 let bulletSkin
@@ -14,6 +16,9 @@ let enemySkin2
 let enemySkin3
 let startMenuSplashScreen
 let scrapSkin
+
+//Font
+let starbornFont
 
 
 let points = 0
@@ -26,13 +31,11 @@ let motherShipLife
 let motherShipPos
 
 
-
+//Menu og knapper
 let menuSizeW = 120
 let buttonSizeW = menuSizeW-40
 
-let musicPlaying
 
-let starbornFont
 
 let frames = 60
 
@@ -44,6 +47,8 @@ let backgroundMusic1
 let hqExplosionSound
 let laserSound
 let laserSound2
+
+let musicPlaying
 
 //States
 let gameStarted = false
@@ -94,7 +99,7 @@ function preload(){
   backgroundMusic1 = loadSound('SoundsMusic/Videoclub Roi Intrumental FULL compressed.mp3')
   laserSound = loadSound('SoundsMusic/laserSoundCom.mp3')
   hqExplosionSound = loadSound('SoundsMusic/hqExplosionSound.mp3')
-  laserSound2 = loadSound ('SoundsMusic/LaserSound2.mp3')
+  laserSound2 = loadSound ('SoundsMusic/LaserSound2Com.mp3')
 
   //Pictures and gifs
   startMenuSplashScreen = loadImage('Pictures/splashScreenTest.PNG')
