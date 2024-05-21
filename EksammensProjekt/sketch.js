@@ -468,6 +468,7 @@ so this makes the player click to start it, and it start he the player does and 
   for(let i = 0; i < enemies.length; i++){
     enemies[i].show()
     enemies[i].move()
+    //If the current enemy in the for loop has the ability to shoot, then activate the shoot function
     if(enemies[i].a == true){
     enemies[i].shoot()
     }
