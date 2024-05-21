@@ -41,9 +41,9 @@ let difficulty = 1
 
 //Music and sound
 let backgroundMusic1
-let spaceShipEnteringSound
-let heavyExplosionSound
+let hqExplosionSound
 let laserSound
+let laserSound2
 
 //States
 let gameStarted = false
@@ -93,8 +93,8 @@ function preload(){
   soundFormats('mp3', 'ogg');
   backgroundMusic1 = loadSound('SoundsMusic/Videoclub Roi Intrumental FULL compressed.mp3')
   laserSound = loadSound('SoundsMusic/laserSoundCom.mp3')
-  spaceShipEnteringSound = loadSound('SoundsMusic/spaceshipEnteringCom.mp3')
-  heavyExplosionSound = loadSound('SoundsMusic/heavyExplosion1Sound.mp3')
+  hqExplosionSound = loadSound('SoundsMusic/hqExplosionSound.mp3')
+  laserSound2 = loadSound ('SoundsMusic/LaserSound2.mp3')
 
   //Pictures and gifs
   startMenuSplashScreen = loadImage('Pictures/splashScreenTest.PNG')
@@ -122,8 +122,8 @@ function setup() {
   motherShipPos = windowHeight-80; //Mothership position
   textAlign(CENTER);
 
-  //
-  
+
+
 
 //////////////
   //Buttons
@@ -464,9 +464,9 @@ so this makes the player click to start it, and it start he the player does and 
     let e = createEnemy(enemyType)
     enemies.push(e)
   }
-  if(frameCount % 1000 == 0){
-    if(difficulty < 10){
-    enemySpawnTimer -= 15
+  if(frameCount % 1200 == 0){
+    if(difficulty < 15){
+    enemySpawnTimer -= 12
     difficulty += 1
     }
   }
@@ -638,6 +638,17 @@ if(motherShipLife <= 0){
 
 //When this function is called, then it adds an explosion to the explosions array and places it where the caller ask it to / x,y
 function createExplosion(x,y,explosionType){
+  //This creates the sound for the explosion
+  if(explosionType == 1){ //Plays one if its explosion type 1
+    if(hqExplosionSound.isPlaying()){hqExplosionSound.stop()}//if its already playing, it stops it
+      //This plays the sound for it
+      hqExplosionSound.play()
+  } else if(explosionType == 2){//Plays another if its explosion type 2
+    if(laserSound2.isPlaying()){laserSound2.stop()}//If its already playing, it stops it
+  //This plays the sound for it
+ laserSound2.play()
+  }
+
   explosion.reset()
   blueExplosion.reset()
   let e = {
@@ -714,7 +725,7 @@ function createEnemyBullet(x,y,h){
 //////////////////////////////////////////
 //When this function is called, then it returns all infomation about the enemy and its functions to the caller
 function createEnemy(type){
-  // giv nyt enemy objekt tilbage
+  //Return gives a new object back
   return {
     //Spawner enemy ind random steder på x aksen og søger for at enemyen kan spawne inde for playerens skyde række vide
     x: random(player.w/2,width-player.w/2-menuSizeW),
@@ -770,7 +781,7 @@ function createEnemy(type){
     },
     //The shoot function is an ability that the enemy can have to spawn a bullet or as      said shoot
     shoot: function(){
-      if(frameCount % 300 == 0){
+      if(frameCount % 180 == 0){
           let eb = createEnemyBullet(this.x,this.y,this.h)
     //enemyBullets er array med fjendernes kugler
       enemyBullets.push(eb)
