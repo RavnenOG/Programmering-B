@@ -642,10 +642,6 @@ if(motherShipLife <= 0){
 //End of draw here
 }
 
-
-
-
-
 ///////////////////////////////////////////////////////////////////////
 
 //When this function is called, then it adds an explosion to the explosions array and places it where the caller ask it to / x,y
@@ -690,7 +686,6 @@ function createScrap(x,y,worth){
   }
   scraps.push(s)//This pushes the scrap just made above into the scrap array
 }
-
 
 //////////////////////////////////////////
 //When this function is called, then it returns all infomation about the bullet and its functions to the caller
