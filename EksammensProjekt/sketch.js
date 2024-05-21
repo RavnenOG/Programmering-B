@@ -125,14 +125,10 @@ function preload(){
   starbornFont = loadFont('Fonts/Starborn.ttf')
 }
 function setup() {
-  
   //Here we setup canvas and some basic things used in the game
   createCanvas(windowWidth, windowHeight);
   motherShipPos = windowHeight-80; //Mothership position
   textAlign(CENTER);
-
-
-
 
 //////////////
   //Buttons
