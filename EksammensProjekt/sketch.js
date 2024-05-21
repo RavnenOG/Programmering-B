@@ -1,12 +1,19 @@
-//Her er alle variablerne som vi bruger i spillet
+ //Here is all the variables used in the game
+
+ let frames = 60
+
+//Backgrounds
 let playingBackground
 let playingMenu
 
+//Player
 let player
 let playerOriSpeed = 6
+
+//Bullet
 let bulletReady
 
-//SKins
+//Skins
 let playerSkin
 let mothershipSkin
 let bulletSkin
@@ -20,25 +27,27 @@ let scrapSkin
 //Font
 let starbornFont
 
-
+//Score and scrap
 let points = 0
 let scrap = 0
 let scrapDespawnTime = 10 //scrapDespawnTime is choosen here and is in second, cause it is later down timed by 1000 cause its in millis.
 let highscore = 0
 
+//Mothership
 let motherShipStartLife = 100
 let motherShipLife
 let motherShipPos
 
 
-//Menu og knapper
+//Menu and buttons
 let menuSizeW = 120
 let buttonSizeW = menuSizeW-40
 
 
 
-let frames = 60
 
+
+//Difficulty
 let enemySpawnTimer = 200 //The less the number the faster they come
 let difficulty = 1
 
@@ -64,20 +73,21 @@ let e1Worth = 20 //the red ship
 let e2Worth = 15 //the fast ship
 let e3Worth = 25 //The shooting ship
 
-// bullets er et tomt array til skud 
+  //Arrays
+//Bullets er et tomt array til skud 
 let bullets = []
-//enemies er et tomt array til fjender
+//Enemies er et tomt array til fjender
 let enemies = []
-//enemybullets er et tomt array til fjendens skud 
+//Enemybullets er et tomt array til fjendens skud 
 let enemyBullets = []
-//explosions er et tomt array til fjender
+//Explosions er et tomt array til fjender
 let explosions = []
 let explosion
 let blueExplosion
-//scraps is an empty array for scrap
+//Scraps is an empty array for scrap
 let scraps = []
 
-  //Buttons
+//Buttons
 let mainMenuB
 let tryAgainB
 
@@ -178,7 +188,7 @@ startMenu()
     y:height -80,
     w:100,
     h:100,
-    s:playerOriSpeed,
+    s:playerOriSpeed,//The player starts with its original speed, that later can be changed in the game
     show: function (){
       imageMode(CENTER)
        //This draws the smaller smaller ship if upgrade 2 level 2 is unlocked
@@ -204,10 +214,12 @@ startMenu()
       this.x = constrain(this.x, this.w/2, width - this.w/2-menuSizeW)
       this.y = constrain(this.y, this.h/2, height - this.h/2)
       }
+      //If the player has more ship it constrains it bigger
       else if(upgrade2Level == 1){
         this.x = constrain(this.x, this.w/2+this.w/4+this.w/6/*i am using this cause its half of the to ships*/, width - this.w/2-this.w/4-this.w/6/*same here*/-menuSizeW)
         this.y = constrain(this.y, this.h/2, height - this.h/2)
       }
+      //If the player has another set of ships it constrains it even bigger
       else if(upgrade2Level == 2){
         this.x = constrain(this.x, this.w+this.w/3, width - this.w-this.w/3-menuSizeW)
         this.y = constrain(this.y, this.h/2, height - this.h/2)
@@ -247,6 +259,7 @@ startMenu()
   }
 
   ////////////////
+  //Sets the frames to 0, until it needs to have frames
 frameRate(0)
 }
 
@@ -348,7 +361,7 @@ function draw() {
   if(gameStarted == true){
     /*Here we hide all the things from the start menu and show all
     that is needed when the game is started*/
-
+    
     startB.hide()
     tryAgainB.hide()
     mainMenuB.hide()
@@ -601,7 +614,7 @@ else
 
 //This runs the explosions array through, and shows all the explosions that needs to be on the screen
   for(let p = 0; p < explosions.length; p++){
-    //laver en variable der referer til explosionen
+    //Sets an variable to the current explosion
     let e = explosions [p]
 
     //This makes the normal explosion if the sneder said the explosion type should be 1
@@ -827,7 +840,7 @@ function playerHitScrap(scrapHere){
 
   //Then we use the exclusion method
   let collision = true
-  if(//Hvis nogen af dem her er sande så rør kuglen ikke en enemy
+  if(//If any if these are true, then the bullet doesn't hit an enemy
   playerRight < scrapLeft || 
   playerLeft > scrapRight || 
   playerTop > scrapBot || 
@@ -881,9 +894,9 @@ function bulletHitEBullet(bullet,enemyBullet){
   let bulletTop = bullet.y - bullet.h/2
   let bulletBot = bullet.y + bullet.h/2
   
-  //Nu bruger vi udelukkelsemetoden
+  //Then we use the exclusion method to figure out if the bullet hit the enemy
   let collision = true
-  if(//Hvis nogen af dem her er sande så rør kuglen ikke en enemy
+  if(//If any if these are true, then the bullet didn't hit the enemy and
   bulletRight < EBLeft || 
   bulletLeft > EBRight || 
   bulletTop > EBBot || 
@@ -895,9 +908,9 @@ function bulletHitEBullet(bullet,enemyBullet){
   return collision
 }
 
-function keyPressed(){
-  if(key == " "){
-    //kalder på shoot funktion inde fra player JSON objektet 
+function keyPressed(){//This function is called when the player presses a button
+  if(key == " "){//Then the if statement checks if its spacebar, and if it is, then it runs the if statement
+    //player.shoot() calls the shoot function inside the player, to make the player shoot
     player.shoot()
   }
 }
@@ -916,8 +929,10 @@ function UpgradeB1Clicked(){
 }
 
 function UpgradeB2Clicked(){
-  if(scrap >= upgrade2Cost && upgrade2Level < 2){
-
+  /*When the function is called, it ask with an if statement, if the player have enough scrap for the upgrade
+  and the upgrade isn't maxed out*/
+  if(scrap >= upgrade2Cost && upgrade2Level < 2){//If both of thse are true then the if statement runs
+    //This adds an level to the upgrade, removes the scrap used and sets up the scrap cost
     upgrade2Level+=1
     scrap -= upgrade2Cost
     upgrade2Cost += upgrade2OriCost
