@@ -103,7 +103,7 @@ function preload(){
   backgroundMusic1 = loadSound('SoundsMusic/Videoclub Roi Intrumental FULL compressed.mp3')
   laserSound = loadSound('SoundsMusic/laserSoundCom.mp3')
   hqExplosionSound = loadSound('SoundsMusic/hqExplosionSound.mp3')
-  laserSound2 = loadSound ('SoundsMusic/LaserSound2Com.mp3')
+  laserSound2 = loadSound ('SoundsMusic/LaserSound2ComCom.mp3')
 
   //Pictures and gifs
   startMenuSplashScreen = loadImage('Pictures/splashScreenTest.PNG')
