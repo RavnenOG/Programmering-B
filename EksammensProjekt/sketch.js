@@ -226,7 +226,7 @@ startMenu()
       //This plays the sound for it
      laserSound.play()
 
-      // createBullet returnere et JSON object som er en kugle 
+      // createBullet returnere et JSON object som er en kugle. The if statements is for how many bullets is needed to be created
     let b1 = createBullet(this.x,this.y,this.h)
     //bullets er array med kugler
       bullets.push(b1)
