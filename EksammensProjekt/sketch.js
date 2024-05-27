@@ -284,7 +284,6 @@ function startGame(){
   scraps.splice(0,scraps.lenght)
 
   
-
   //This places the player where it is suppose to start
   player.x = width/2
   player.y = height - 80
