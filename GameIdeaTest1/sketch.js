@@ -23,8 +23,11 @@ function setup() {
       this.x += directionX * this.s
     },
     jump: function(){
-      for(i=0; i>100; i++){
-        this.y += 1
+      console.log("before for loop")
+      for(let i = 0; i<100; i++){
+        this.y -= 1
+        console.log("doing loop")
+
       }
     },
     show: function(){
@@ -43,8 +46,11 @@ function draw() {
   if(keyIsDown(RIGHT_ARROW)){
     player.move(+1)
   }
-  if(key === ' '){
-    player.jump()
-  }
   player.show()
+}
+
+function keyPressed(){
+ if(key === ' '){
+ player.jump()
+}
 }

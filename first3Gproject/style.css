@@ -14,7 +14,7 @@
   overflow:hidden;
   display:grid;
   place-items:center;
-  transition: 0.6s all ease-in-out;
+  transition: 0.6s ease-in-out;
 }
 
 .visible{
@@ -26,6 +26,12 @@
 }
 #page2{
   background-color: darkgoldenrod;
+}
+#page3{
+  background-color: aqua;
+}
+#page4{
+  background-color: chartreuse;
 }
 
 h1{
