@@ -23,7 +23,9 @@ function setup() {
       this.x += directionX * this.s
     },
     jump: function(){
-      
+      for(i=0; i>100; i++){
+        this.y += 1
+      }
     },
     show: function(){
       imageMode(CENTER)
@@ -41,6 +43,8 @@ function draw() {
   if(keyIsDown(RIGHT_ARROW)){
     player.move(+1)
   }
-  
+  if(key === ' '){
+    player.jump()
+  }
   player.show()
 }
