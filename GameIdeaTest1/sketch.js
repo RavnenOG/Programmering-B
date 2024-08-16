@@ -25,7 +25,9 @@ function setup() {
     jump: function(){
       console.log("before for loop")
       for(let i = 0; i<100; i++){
+        //delay her
         this.y -= 1
+        
         console.log("doing loop")
 
       }
