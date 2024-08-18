@@ -28,13 +28,13 @@ function setup() {
 
   ballX = windowWidth/2
   ballY = windowHeight/2
-  ballSize = windowWidth*windowHeight/18000
-  ballSpeedX = 5
+  ballSize = windowWidth*windowHeight/20000
+  ballSpeedX = 7
   ballSpeedY = 2
 
 
   pX = 40
-  pS = 5
+  pS = 10
   pYSize = height/10
 
   p1Y = height/2
@@ -133,6 +133,8 @@ function draw() {
     ballY = height/2
     //Stop game
     gameStarted = false
+    //Speed up Ball
+    ballSpeedX += 1
   }
   //right side
   if(ballX>width){
@@ -143,6 +145,8 @@ function draw() {
     ballY = height/2
     //Stop game
     gameStarted = false
+    //Speed up Ball
+    ballSpeedX += 1
   }
 
 }
