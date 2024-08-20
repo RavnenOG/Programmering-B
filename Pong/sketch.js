@@ -1,5 +1,6 @@
 //Basis
 let gameStarted
+let timeSUP
 
 //Ball
 let ballX
@@ -25,6 +26,7 @@ function setup() {
 
   //Set default things
   gameStarted = false
+  timeSUP = millis()+10000
 
   ballX = windowWidth/2
   ballY = windowHeight/2
@@ -105,6 +107,15 @@ function draw() {
   //Move ball on the y-axis
   ballY += ballSpeedY
   }
+  //Move ball faster
+  
+  if(timeSUP<millis()){
+    if(ballSpeedX > 0){
+    ballSpeedX +=  1
+    } else { ballSpeedX -= 1}
+    timeSUP = millis()+10000
+  }
+
   //Draw ball
   ellipse(ballX,ballY,ballSize)
     // ---
@@ -134,7 +145,7 @@ function draw() {
     //Stop game
     gameStarted = false
     //Speed up Ball
-    ballSpeedX += 1
+    ballSpeedX = 7
   }
   //right side
   if(ballX>width){
@@ -146,7 +157,7 @@ function draw() {
     //Stop game
     gameStarted = false
     //Speed up Ball
-    ballSpeedX += 1
+    ballSpeedX = 7
   }
 
 }
