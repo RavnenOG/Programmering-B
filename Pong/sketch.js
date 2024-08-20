@@ -21,7 +21,7 @@ let p2P
 
 
 function setup() {
-  createCanvas(windowWidth,windowHeight);
+  createCanvas(windowWidth-1,windowHeight-1);
 
   //Set default things
   gameStarted = false
