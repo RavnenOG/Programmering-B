@@ -82,12 +82,12 @@ function draw() {
 
     //Ball ---
   //Make ball bounce off player2, right side, if in range
-  if(ballX>width-ballSize/2-pX && ballY>p2Y-pYSize/2&& ballY<p2Y+pYSize/2 && ballX+ballSize/2<width && ballSpeedX > 0){
+  if(ballX>width-ballSize/2-pX && ballY+ballSize/2>p2Y-pYSize/2&& ballY-ballSize/2<p2Y+pYSize/2 && ballX+ballSize/2<width && ballSpeedX > 0){
     ballSpeedX = ballSpeedX * -1
     console.log("right player bounce")
   }
   //Make ball bounce off player1, left side, if in range
-  if(ballX<0+ballSize/2+pX && ballY>p1Y-pYSize/2 && ballY<p1Y+pYSize/2 && ballX-ballSize/2>0 && ballSpeedX < 0){
+  if(ballX<0+ballSize/2+pX && ballY+ballSize/2>p1Y-pYSize/2 && ballY-ballSize/2<p1Y+pYSize/2 && ballX-ballSize/2>0 && ballSpeedX < 0){
     ballSpeedX = ballSpeedX * -1
     console.log("left player bounce")
   }
@@ -113,7 +113,7 @@ function draw() {
     if(ballSpeedX > 0){
     ballSpeedX +=  1
     } else { ballSpeedX -= 1}
-    timeSUP = millis()+10000
+    timeSUP = millis()+5000
   }
 
   //Draw ball
@@ -144,8 +144,6 @@ function draw() {
     ballY = height/2
     //Stop game
     gameStarted = false
-    //Speed up Ball
-    ballSpeedX = 7
   }
   //right side
   if(ballX>width){
@@ -156,8 +154,6 @@ function draw() {
     ballY = height/2
     //Stop game
     gameStarted = false
-    //Speed up Ball
-    ballSpeedX = 7
   }
 
 }
@@ -165,5 +161,6 @@ function draw() {
 function keyPressed(){
   if(keyCode == '32' && gameStarted == false){
     gameStarted = true
+    ballSpeedX = 7
   }
 }
