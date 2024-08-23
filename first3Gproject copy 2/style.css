@@ -13,7 +13,13 @@ header{
   background-color:rgb(249, 149, 0);
   display:grid;
   grid-template-columns: repeat(4, 1fr);
+}
 
+header#leftmenu{
+  width: 20vw;
+  height: 100vh;
+  grid-template-columns: auto;
+  grid-template-rows: repeat(4,10rem);
 }
 
 .menuitem{
@@ -39,9 +45,10 @@ header{
 .page{
   position:fixed;
   left:-100vw;
-  width:100vw;
-  height:88vh;
-  top:12vh;
+  width:80vw;
+  height:100vh;
+  margin-left:20vw;
+  top:0vh;
   overflow:hidden;
   display:grid;
   place-items:center;
