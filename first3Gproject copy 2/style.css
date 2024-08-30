@@ -35,8 +35,13 @@ header{
   background-color:rgb(249, 149, 0);
   display:grid;
   place-items: center;
-  color:white;
+  color:rgb(255, 255, 255);
   cursor: pointer;
+
+  background-image: url(./Images/BTTF3.PNG);
+  background-size: cover;
+  background-position: center center;
+
   transition: 0.3s ease-in-out
 }
 
@@ -84,6 +89,9 @@ header{
 
 #page1{
   background-color: blueviolet;
+  background-image: url(./Images/BTTF1.jpg);
+  background-size: cover;
+  background-position: center center;
 }
 #page2{
   background-color: darkgoldenrod;
@@ -97,5 +105,5 @@ header{
 
 h1{
   font-family: Raleway;
-  color: hotpink
+  color: rgb(0, 0, 0)
 }
