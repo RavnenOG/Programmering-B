@@ -6,21 +6,28 @@
 }
 
 header{
-  width:100vw;
-  height:12vh;
+  width:20vw;
+  height:100vh;
   position: fixed;
   z-index:2;
   background-color:rgb(249, 149, 0);
   display:grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: auto;
+  grid-template-rows: repeat(4,1fr);
+  left: 80;
 }
 
-header#leftmenu{
+header#rightmenu{
   width: 20vw;
   height: 100vh;
   grid-template-columns: auto;
   grid-template-rows: repeat(4,1fr);
-  margin-left: 80vw;
+  left: 80vw;
+}
+
+.headerVisible{
+  left:80;
+  transition: 0.3s ease-in-out
 }
 
 .menuitem{
@@ -35,13 +42,15 @@ header#leftmenu{
 }
 
 .menuitem:hover{
-  border-bottom: 6px solid black;
+  border-left: 6px solid black;
   font-size:2.4rem;
 }
 
 .menuitem.active{
-  border-bottom:6px solid red;
+  border-left:6px solid red;
 }
+
+
 
 .page{
   position:fixed;
