@@ -2,11 +2,15 @@ let currentPage = 1
 
 let pages //array med alle elementer med class = page
 let menuItems //array med alle menupunkterne
+let menuButton
+let menuHidden
 
 function setup(){
   
   pages = selectAll('.page')
   menuItems = selectAll('.menuitem')
+  menuButton = select('#menuButton')
+  menuHidden= false
 
   //menuitems skal reagere ved at skifte side
   for(m of menuItems){
@@ -17,7 +21,27 @@ function setup(){
       shiftPage(nr)
     } )
   }
+
+  menuButton.mousePressed(function(){ 
+      hideMenu()
+  })
+
+
   shiftPage(currentPage)
+
+}
+
+function hideMenu(){
+  if(menuHidden){
+    select('header').addClass('headerHidden')
+    menuButton.addClass('menuHidden')
+    menuHidden = false
+  }else{ 
+    select('header').removeClass('headerHidden')
+    menuButton.removeClass('menuHidden')
+    menuHidden = true
+  }
+
 }
 
 function shiftPage(num){
