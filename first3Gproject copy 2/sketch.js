@@ -1,9 +1,12 @@
-let currentPage = 4
+let currentPage = 1
 
 let pages //array med alle elementer med class = page
 let menuItems //array med alle menupunkterne
 let menuButton
 let menuHidden
+
+let video
+let videoPaused
 
 function setup(){
   
@@ -11,6 +14,9 @@ function setup(){
   menuItems = selectAll('.menuitem')
   menuButton = select('#menuButton')
   menuHidden= false
+
+  video = select('#video')
+  videoPaused = true
 
   //menuitems skal reagere ved at skifte side
   for(m of menuItems){
@@ -24,6 +30,9 @@ function setup(){
 
   menuButton.mousePressed(function(){ 
       hideMenu()
+  })
+  video.mousePressed(function(){
+    videoPause()
   })
 
 
@@ -45,6 +54,12 @@ function hideMenu(){
 }
 
 function shiftPage(num){
+
+  if(num != 5){
+    video.pause()
+    videoPaused = true
+  }
+
 if(num == "ArrowLeft"){
   num = currentPage - 1
 }
@@ -63,8 +78,22 @@ if(isNaN(num) || num > pages.length || num == 0){
   select("#page" + currentPage).addClass('visible')
   select("#menu" + currentPage).addClass('active')
   
+  
 }
 
 function keyPressed(){
 shiftPage(key)
+}
+
+
+//Video start og oause function
+function videoPause(){
+
+  if (videoPaused) {
+    video.play()
+    videoPaused = false
+} else {
+    video.pause()
+    videoPaused = true
+}
 }
