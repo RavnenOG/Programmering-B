@@ -1,4 +1,4 @@
-let currentPage = 1
+let currentPage = 4
 
 let pages //array med alle elementer med class = page
 let menuItems //array med alle menupunkterne
