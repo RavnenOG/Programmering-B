@@ -146,15 +146,16 @@ header{
   width: 80%;
   height: 80%;
   display:grid;
-  place-items: center;
   border: 1px solid white;
+  text-align: center;
 }
 #textBox{
   color:white;
   width: 90%;
   height: 60%;
   font-size: 20px;
-  border: 1px solid white;
+  margin-left:20px;
+  text-align: left;
 }
 
 #page3{
@@ -206,4 +207,8 @@ h3{
   font-family: SUSE;
   font-size: 20px;
   color: rgb(255, 255, 255)
+}
+
+ul{
+  list-style-type: none;
 }
