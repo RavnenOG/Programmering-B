@@ -1,0 +1,8 @@
+{
+    "Name"     :      "Dines Diner",
+    "Descriptiption" : "Dette er fra den lokale fil mydata.json. De ligger i Javasc ript Object Notation (JSON), og er hentet med funktionen fetch",
+    "formerHaircolors"    :      ["green","blue","black"],
+    "sleeping"    : "false",
+    "ven"   : "Alex",
+    "image1" : ".assets/cyberpunk.jpg"
+}
