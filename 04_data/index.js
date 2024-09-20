@@ -1,4 +1,4 @@
-let currentPage = 2
+let currentPage = 3
 
 let pages //array med alle elementer med class = page 
 let menuItems //array med alle menupunkterne  
@@ -82,14 +82,44 @@ function pageThree(){
             //lad os tjekke om serverens response er okay
             console.log(response)
             //og hvis det er det, beder vi serveren om at give os json resultatet 
+            if(response.ok){
             return response.json()
+            }
         }
     )
     //og når DET så komer tilbage 
     .then(
-        function (data){
+        function (cocktails){
             //vi har nu en random drink
-            console.log(data)
+            console.log(cocktails)
+
+            for(c of cocktails.drinks){
+                console.log(c.strDrink)
+
+                let headerDiv = createElement('div')
+                let drinkHeader = createElement('h1', c.strDrink)
+
+                let infoDiv = createElement('div');
+                let drinkImage =createElement('img',c.strDrinkThumb);
+                let drinkHowTo = createElement('p',c.strInstructions)
+
+                headerDiv.child(drinkHeader)
+                infoDiv.child(drinkImage)
+                infoDiv.child(drinkHowTo)
+
+                select('#p3').child(headerDiv);
+                select('#p3Info').child(infoDiv);
+            }
+
+
+           
+            
+
+            
+
+
+            
+           
         }
     )
 
