@@ -100,7 +100,7 @@ function pageThree(){
                 let drinkHeader = createElement('h1', c.strDrink)
 
                 let infoDiv = createElement('div');
-                let drinkImage =createElement('img',c.strDrinkThumb);
+                let drinkImage =createImg(c.strDrinkThumb);
                 let drinkHowTo = createElement('p',c.strInstructions)
 
                 headerDiv.child(drinkHeader)
