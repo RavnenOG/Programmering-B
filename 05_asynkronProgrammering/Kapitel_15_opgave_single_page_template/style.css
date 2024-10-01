@@ -87,3 +87,20 @@ header{
        - 'position:absolute' placerer elementet i forhold til .post.
        - 'display:grid' bruges her til nemt at centrere eller justere indholdet inden i forfatterfeltet. */
 }
+
+.post .upVotes{
+    color:white;
+    font-size: 2rem;
+    display:grid;
+    text-align: left;
+
+    border-radius:1rem;
+
+    position:absolute;
+    left: 1rem;
+    bottom: 0.1rem;
+}
+
+h3{
+    background-color: rgb(149, 0, 0);
+}
