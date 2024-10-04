@@ -1,8 +1,8 @@
 *{
+    /* Nulstiller margin og padding på alle elementer og sætter box-sizing til border-box for bedre kontrol over elementernes størrelse */
     margin:0;
     padding:0;
     box-sizing: border-box;
-    /* Nulstiller margin og padding på alle elementer og sætter box-sizing til border-box for bedre kontrol over elementernes størrelse */
 }
 
 header{
@@ -56,51 +56,69 @@ header{
     border:1px solid gray;
     border-radius:1rem;
     padding:1rem;
+    /*Bruger 'display:grid' og 'place-items:center' til at centrerer indholdet i indlægget*/
     display:grid;
     place-items:center;
     background-size: cover;
     position:relative;
-    /* Gør hvert indlæg til en grid container:
-       - 'display:grid' og 'place-items:center' centrerer indholdet i indlægget.
-       - 'position:relative' gør det muligt at positionere indre elementer absolut i forhold til .post. */
 }
 
 .post h2{
+    /*Styling af postens tekst*/
     color:whitesmoke;
     font-size:1.5rem;
     font-weight:bold;
-    /* Styling af overskriften i hvert indlæg */
+    background-color: rgba(0, 0, 0, 0.300);
+    border-radius:1rem;
+}
+
+
+
+.post .upVotes{
+    position:absolute;
+    display:grid;
+    right: 1rem;
+    top: 1rem;
+    width:35%;
+    
+    color:white;
+    font-size: 1.5rem;
+    text-align: left;
+    background-color: rgb(149, 0, 0);
+    border-radius:1rem;
+    padding-right:1rem;
+    
 }
 
 .post .author{
+    /*Bruger 'position:absolute' til at lave forfatterns navn ud fra posten*/
     position:absolute;
-    right:1rem;
+    /*Gør Boksen til forfatterns navn er 55% af posten*/
+    width:55%;
+    /*Gør den bliver lavet 1rem fra venstre*/
+    left:1rem;
+    /*Gør den bliver lavet 1rem fra toppen*/
     top:1rem;
-    color:dodgerblue;
-    width:80%;
-    padding-right:.8rem;
-    background-color:black;
+    /*Gør tekstens farve er rød*/
+    color:rgb(255, 0, 0);
+    
+    /*Gør boksen/baggrunden er lidt gennemsigtig grå*/
+    background-color:rgba(58, 58, 58, 0.850);
+    /*Bruger 'display:grid' til at justere indholdet inden i forfatterfeltet*/
     display:grid;
-    text-align: right;
-    border-radius:1rem;
-    /* Positionerer forfatterens navn øverst til højre i indlægget:
-       - 'position:absolute' placerer elementet i forhold til .post.
-       - 'display:grid' bruges her til nemt at centrere eller justere indholdet inden i forfatterfeltet. */
-}
-
-.post .upVotes{
-    color:white;
-    font-size: 2rem;
-    display:grid;
+    /*Gør så teksten bliver skrevet i venstre side*/
     text-align: left;
-
+    /*Gør tekstens størrelse er 1.5rem*/
+    font-size: 1.5rem;
+    /*Gør teksten bliver skrevet 1rem ud fra boksens venstre side*/
+    padding-left:1rem;
+    /*Gør boksen er lidt rund*/
     border-radius:1rem;
-
-    position:absolute;
-    left: 1rem;
-    bottom: 0.1rem;
 }
 
-h3{
-    background-color: rgb(149, 0, 0);
+.post .link{
+    position:absolute;
+    display:grid;
+    left: 1rem;
+    bottom: 1rem;
 }

@@ -1,7 +1,11 @@
+
 function setup(){
-    hentTopPosts("Marvel");
-    // Kalder funktionen 'hentTopPosts' med argumentet "cats" ved programmets start.
+    select('#searchButton').mousePressed(function(){
+        subreddit = select('#searchInput').value()
+        hentTopPosts(subreddit);
+    })
 }
+
 
 async function hentTopPosts(subreddit) {
     try {
@@ -15,15 +19,15 @@ async function hentTopPosts(subreddit) {
             createPost(p.data);
         }
 
-    } catch (fejl) {
-        console.error('Der opstod en fejl:', fejl);
-        // Håndterer eventuelle fejl, der opstår under hentningen af data.
+    } catch (error) {
+        //Håndterer hvis der kommer fejl som opstår under hentningen af data.
+        console.error('Der opstod en fejl: ', error);
+        select('#page1 . right'.html('Der fidnes ikke en subreddit med det navn'))
     }
 }
 
 function createPost(post){
     console.log(post);
-    
 
     //Adder en div til idet "page1"'s class som hedder right
     let newDiv = select('#page1 .right');
@@ -33,11 +37,13 @@ function createPost(post){
     
     container.style('background-image', `url(${post.thumbnail})`);
     
-
+    //Laver et h2 Element med postens title
     let title = createElement('h2', post.title);
 
+    //Laver et h3 Element med postens Up votes
     let upVotes = createElement('h3', "Up votes: "+post.ups).addClass('upVotes')
 
+    //Laver en tekst/p med postens forfatter
     let author = createElement('p', post.author).addClass('author');
     
 
@@ -45,6 +51,10 @@ function createPost(post){
     container.child(title);
     container.child(author);
     container.child(upVotes);
+    //Laver et link i posten på nettet
+    let link = createA(post.url,'Læs mere..').addClass('link')
+    //Lægger linket ind i containeren
+    container.child(link)
     
     //Her putter vi containeren ind i diven som er under right i idet page1
     newDiv.child(container);
