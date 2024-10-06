@@ -122,3 +122,9 @@ header{
     left: 1rem;
     bottom: 1rem;
 }
+
+#preTekst{
+    font-size:2rem;
+    background-color: rgba(0, 0, 0, 0.300);
+    height:20%;
+}

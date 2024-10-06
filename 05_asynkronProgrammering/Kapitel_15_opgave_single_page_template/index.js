@@ -18,6 +18,7 @@ async function hentTopPosts(subreddit) {
         for (const p of posts) {
             createPost(p.data);
         }
+        select('#preTekst').remove()
 
     } catch (error) {
         //Håndterer hvis der kommer fejl som opstår under hentningen af data.
@@ -45,14 +46,16 @@ function createPost(post){
 
     //Laver en tekst/p med postens forfatter
     let author = createElement('p', post.author).addClass('author');
+
+    //Laver et link i posten på nettet
+    let link = createA(post.url,'Læs mere..').addClass('link')
     
 
     //Her putter vi alle vores forskellige dataer fra json'et ind i containeren
     container.child(title);
     container.child(author);
     container.child(upVotes);
-    //Laver et link i posten på nettet
-    let link = createA(post.url,'Læs mere..').addClass('link')
+    
     //Lægger linket ind i containeren
     container.child(link)
     
