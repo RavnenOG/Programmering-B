@@ -34,12 +34,13 @@ function setup() {
         console.log(json.name,'Her er navnet fra JSON opjektet')
         //Så kan vi opdatere HTML dokumentet
         m5NameDiv.html(json.name)
-        m5StatusDiv.html(json.status)
-        //
+        
         if(json.status){
             m5StatusDiv.addClass("true")
+            m5StatusDiv.html("on")
         }else{
             m5StatusDiv.removeClass("true")
+            m5StatusDiv.html("off")
         }
     })
 }
