@@ -40,12 +40,18 @@ h1{
     color:hotpink;
 }
 
+#clock{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:2rem;
+}
+
 .time{
     font-family: Arial;
     font-size:6rem;
     height:11rem;
     width:11rem;
-    border:1px dotted;
+    border:3px dotted;
     border-radius: 50%;
     display:grid;
     place-items: center;

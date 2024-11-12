@@ -5,9 +5,12 @@ let seconds = 0
 function setup(){
     pages = selectAll('.page')
     setInterval(()=>{
-        select('#timer_hours').html(hour())
-        select('#timer_minutes').html(minute())
-        select('#timer_seconds').html(second())
+        let hoursZero = hour()<10 ? "0" : ""
+        let minutesZero = minute()<10 ? "0" : ""
+        let secondsZero = second()<10 ? "0" : ""
+        select('#timer_hours').html(hoursZero + hour())
+        select('#timer_minutes').html(minutesZero + minute())
+        select('#timer_seconds').html(secondsZero + second())
     },1000)
     
 }
