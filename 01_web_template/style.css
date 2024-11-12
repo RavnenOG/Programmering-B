@@ -39,3 +39,14 @@ h1{
     font-family: Raleway;
     color:hotpink;
 }
+
+.time{
+    font-family: Arial;
+    font-size:6rem;
+    height:11rem;
+    width:11rem;
+    border:1px dotted;
+    border-radius: 50%;
+    display:grid;
+    place-items: center;
+}

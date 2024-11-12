@@ -1,12 +1,15 @@
 let currentPage = 1
 let pages //array med alle elementer med class = page 
+let seconds = 0
 
 function setup(){
-    console.log('P5.js er loaded')
     pages = selectAll('.page')
-    //nu kan man se at pages er blevet til en liste med alle class = page ting
-    console.log(pages.length)
-
+    setInterval(()=>{
+        select('#timer_hours').html(hour())
+        select('#timer_minutes').html(minute())
+        select('#timer_seconds').html(second())
+    },1000)
+    
 }
 
 function shiftPage(num){
