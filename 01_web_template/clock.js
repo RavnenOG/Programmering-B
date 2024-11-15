@@ -1,7 +1,10 @@
+
+//Når en klasses objekter kan oføre sig forskelligt iforhold til construktoren, kaldes det POLYMORFI
 class Clock{
     //Construktoren er klassens setup "setup" funktion, som kaldes når nye objekter med klassen
-    constructor(div){
+    constructor(div, style){
         this.div = div
+        this.style = style
         //Hours, minutes and seconds
         this.hDiv = createDiv();
         this.mDiv = createDiv();
@@ -11,6 +14,28 @@ class Clock{
         this.div.child(this.sDiv);
         //Interval til at sætte tiden ind
         this.interval
+        //styles
+        this.div.style('width', '16rem')
+        this.div.style('height', '5rem')
+        this.div.style('border', '4px dotted gray')
+        this.div.style('display','grid')
+        this.div.style('place-items','center')
+        this.div.style('padding','1rem')
+        this.div.style('border-radius','2rem')
+        this.div.style('font-size','2rem')
+        //reager på argumentet style fra construktoren
+        switch(style){
+            case 'pink': 
+                this.div.style('background','hotpink')
+                return
+            case 'orange': 
+                this.div.style('background','orange')
+                return
+            case 'black': 
+                this.div.style('background','black')
+                this.div.style('color','white')
+                return           
+        }
     }
     start(){
         this.interval = setInterval(()=> {
@@ -20,5 +45,8 @@ class Clock{
             this.mDiv.html(minute() < 10 ? "0"+minute():minute())
             this.sDiv.html(second() < 10 ? "0"+second():second())
         },1000)
+    }
+    stop(){
+        clearInterval(this.interval)
     }
 }
