@@ -2,7 +2,7 @@ console.log('Clock is here')
 let alarmSound
 
 function preload(){
-    alarmSound = loadSound('Sounds/your phone linging.mp3')
+    alarmSound = loadSound('./Sounds/your phone linging.mp3')
 }
 
 //Når en klasses objekter kan opføre sig forskelligt afhængig af argumenter i contructoren 
