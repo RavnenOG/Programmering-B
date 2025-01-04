@@ -60,7 +60,5 @@ class Clock{
     stop(){
         clearInterval(this.interval)
     }
-    applyStyles(){
-
-    }
+    
 }
