@@ -23,9 +23,10 @@ function setup(){
   for(m of menuItems){
     m.mousePressed( function(e){
       //slice -1 henter det sidste bogstav i en string
-      let nr = e.target.id.slice(-1)
+      let nr = e.target.id.split('menu')[1]
       //nu kan vi kalde shiftpage som skifter side
       shiftPage(nr)
+    
     } )
   }
 
@@ -47,17 +48,16 @@ async function fetchQuizQuestion() {
       console.log(quizQuestions)
       //let question1 = quizQuestions.results[0]
       let questions = {
-        q1 : quizQuestions.results[0],
-        q2 : quizQuestions.results[1],
-        q3 : quizQuestions.results[2],
-        q4 : quizQuestions.results[3],
-        q5 : quizQuestions.results[4],
-        q6 : quizQuestions.results[5],
-        q7 : quizQuestions.results[6],
-        q8 : quizQuestions.results[7],
-        q9 : quizQuestions.results[8],
-        q10 : quizQuestions.results[9]}
-        console.log(questions.q1.correct_answer)
+        "q1" : quizQuestions.results[0],
+        "q2" : quizQuestions.results[1],
+        "q3" : quizQuestions.results[2],
+        "q4" : quizQuestions.results[3],
+        "q5" : quizQuestions.results[4],
+        "q6" : quizQuestions.results[5],
+        "q7" : quizQuestions.results[6],
+        "q8" : quizQuestions.results[7],
+        "q9" : quizQuestions.results[8],
+        "q10" : quizQuestions.results[9]}
       showQuestion(questions)
     }else{
       console.log("der var en fejl i hentningen af data")
@@ -65,30 +65,35 @@ async function fetchQuizQuestion() {
   }
 
   function showQuestion(q){
-    console.log(q)
     select('#questionDiv1').html(q.q1.question)
     select('#questionDiv2').html(q.q2.question)
     select('#questionDiv3').html(q.q3.question)
     select('#questionDiv4').html(q.q4.question)
     select('#questionDiv5').html(q.q5.question)
     select('#questionDiv6').html(q.q6.question)
-    for(i=1;10;i++){
-        showAnswers(q.q1,i)}
-    
+    select('#questionDiv7').html(q.q7.question)
+    select('#questionDiv8').html(q.q8.question)
+    select('#questionDiv9').html(q.q9.question)
+    select('#questionDiv10').html(q.q10.question)
+
+    for(i=1;i<=10;i++){
+        showAnswers(q[`q${i}`],i)
+        //console.log("Det her er i, i showquestions: ",i, "og det her er q.q:",q[`q${i}`])
+      }
   }
 
     
 
 function showAnswers(q,questionNumber){
-let trueButton = createButton('True')
-let falseButton = createButton('False')
+  let trueButton = createButton('True')
+  let falseButton = createButton('False')
 
 
-select(`#buttonsDiv${questionNumber}`).child(trueButton)
-select(`#buttonsDiv${questionNumber}`).child(falseButton)
+  select(`#buttonsDiv${questionNumber}`).child(trueButton)
+  select(`#buttonsDiv${questionNumber}`).child(falseButton)
 
-trueButton.mousePressed(()=>checkAnswer(q, trueButton, falseButton, "True"))
-falseButton.mousePressed(()=>checkAnswer(q, trueButton, falseButton, "False"))
+  trueButton.mousePressed(()=>checkAnswer(q, trueButton, falseButton, "True"))
+  falseButton.mousePressed(()=>checkAnswer(q, trueButton, falseButton, "False"))
 }
 
 function checkAnswer(q, trueButton, falseButton, answer){
@@ -99,13 +104,25 @@ function checkAnswer(q, trueButton, falseButton, answer){
 if(q.correct_answer == "True" && answer == "True"){
   trueButton.addClass('correct')
   falseButton.addClass('incorrect')
-
-}else{
+  console.log("true,true")
+}else if(q.correct_answer == "False" && answer == "False"){
   trueButton.addClass('incorrect')
   falseButton.addClass('correct')
+  console.log("false false")
+}else if(q.correct_answer == "True" && answer == "False"){
+  trueButton.addClass('correct')
+  falseButton.addClass('incorrect')
+  console.log("true false")
+}else if(q.correct_answer == "False" && answer == "True"){
+  trueButton.addClass('incorrect')
+  falseButton.addClass('correct')
+  console.log("false true")
 }
 }
 }
+
+
+
 
 
     //Menu functions:

@@ -161,6 +161,26 @@
     background-size: cover;
     background-position: center center;
   }
+  #page7{
+    background-color: rgb(240, 206, 134);
+    background-size: cover;
+    background-position: center center;
+  }
+  #page8{
+    background-color: rgb(30, 85, 122);
+    background-size: cover;
+    background-position: center center;
+  }
+  #page9{
+    background-color: rgb(205, 0, 89);
+    background-size: cover;
+    background-position: center center;
+  }
+  #page10{
+    background-color: rgb(230, 145, 0);
+    background-size: cover;
+    background-position: center center;
+  }
  
  
   h2{
@@ -179,6 +199,6 @@
     cursor: pointer;
   }
   
-  button:hover {
+  Button:hover {
     background-color: #e0e0e0;
   }
