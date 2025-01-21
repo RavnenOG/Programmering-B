@@ -1,0 +1,27 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f0f8ff;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  margin-top: 10rem;
+  padding:10vh;
+}
+
+#questionDiv{
+  border: 1px solid pink;
+  border-radius: 2rem;
+  padding: 2rem;
+  font-size: 3rem;
+}
+
+.correct{
+  background-color: green;
+}
+
+.incorrect{
+  background-color: rgb(217, 0, 0);
+}
