@@ -1,0 +1,43 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+}
+
+.box1 {
+  background-color: #f00;
+  width: 80%;
+  height: 80%;
+  border: 2px solid black;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+}
+
+.box1 #tempBox {
+  background-color: #0f0;
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  z-index: 1;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#temperature, #weatherCode, #windSpeed {
+  font-size: 1.5em;
+  margin: 10px 0;
+}
