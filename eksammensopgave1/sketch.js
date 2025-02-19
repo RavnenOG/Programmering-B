@@ -23,7 +23,7 @@ if(data.current_weather.is_day == "1"){
   weatherDescription = codes[weatherCode].night.description
 }
  document.getElementById('temperature').textContent = `Temperature: ${temp} °C`
- document.getElementById('weatherCode').textContent = `Weather Code: ${weatherDescription}`;
+ document.getElementById('weatherCode').textContent = `Weather: ${weatherDescription}`;
  document.getElementById('windSpeed').textContent = `Wind Speed: ${windSpeed} m/s`;
 
 console.log(temp, weatherCode, windSpeed)
