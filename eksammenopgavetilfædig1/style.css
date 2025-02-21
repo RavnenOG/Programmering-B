@@ -6,20 +6,42 @@ html, body {
 canvas {
   display: block;
 }
-button {
+#button1 {
   background-color: #4CAF50;
   border: none;
   color: white;
   padding: 15px 32px;
   text-align: center;
-  text-decoration: none;
   display: inline-block;
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 4px;
 }
-button:active {
+#button1:active {
   background-color: #3e8e41;
   transform: translateY(2px);
+}
+#joke {
+  font-size: 20px;
+  color: #333;
+  margin: 20px auto;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  text-align: center;
+  width: fit-content;
+}
+#category {
+  font-size: 18px;
+  margin: 10px 0;
+  color: #555;
+  padding: 8px;
+  margin: 10px 0;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  text-align: center;
 }
