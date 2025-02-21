@@ -1,11 +1,15 @@
+let joke
+let cate
+
 async function setup(){
 let response = await fetch('https://v2.jokeapi.dev/joke/Any?type=single');
 let data = await response.json();
 console.log(data);
-let joke = data.joke;
-let cate = data.category;
-createP(joke);
-createP(cate);
+joke = data.joke;
+cate = data.category;
+
+document.getElementById('joke').innerText = joke;
+
 }
 
 async function getJoke(){
@@ -13,4 +17,11 @@ async function getJoke(){
 let data = await response.json();
 console.log(data);
 
+joke = data.joke;
+cate = data.category;
+document.getElementById('joke').innerText = "Joke: "+joke;
+document.getElementById('category').innerText = "Category: "+cate;
+
 }
+
+document.getElementById('button1').addEventListener('click', getJoke);
