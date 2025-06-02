@@ -242,8 +242,9 @@ function rollCard() {
   // Only allow betting if bet > 0 and enough chips
   if (bet > 0 && chips >= bet) {
     if (win) {
+      if( profit == 1){
       let winnings = Math.floor(bet * profit);
-      chips += winnings;
+      chips += winnings;}
       lastBetResult = "win";
     } else {
       chips -= bet;
